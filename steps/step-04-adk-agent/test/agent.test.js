@@ -78,4 +78,12 @@ describe('KrakowCulturalAgent Component Tests', () => {
       console.warn('[Test] Skipping live chat verification due to Ollama state:', e.message);
     }
   });
+
+  it('loads krakow_cultural_agent/agent.js as pure JavaScript rootAgent for Google ADK CLI', async () => {
+    const { rootAgent } = await import('../krakow_cultural_agent/agent.js');
+    assert.ok(rootAgent);
+    assert.strictEqual(rootAgent.name, 'krakow_cultural_agent');
+    assert.ok(rootAgent.tools.some(t => t.name === 'search_krakow_knowledge'));
+  });
 });
+

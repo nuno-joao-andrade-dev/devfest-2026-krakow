@@ -7,6 +7,8 @@
     "start": "node steps/step-06-google-search-mcp/src/server.js",
     "start:step-05": "node steps/step-05-full-app/src/server.js",
     "start:step-06": "node steps/step-06-google-search-mcp/src/server.js",
+    "adk:step-04": "node node_modules/.bin/adk web steps/step-04-adk-agent --port 8000",
+    "adk:step-05": "node node_modules/.bin/adk web steps/step-05-full-app --port 8000",
     "dev": "node --watch steps/step-06-google-search-mcp/src/server.js",
     "test": "node --test steps/step-01-setup-and-llm/test/**/*.test.js && node --test steps/step-02-dual-layer-rag/test/**/*.test.js && node --test steps/step-03-native-tools/test/**/*.test.js && node --test steps/step-04-adk-agent/test/**/*.test.js && NODE_ENV=test node --test steps/step-05-full-app/test/**/*.test.js && NODE_ENV=test node --test steps/step-06-google-search-mcp/test/**/*.test.js",
     "test:step-01": "node --test steps/step-01-setup-and-llm/test/**/*.test.js",

@@ -57,18 +57,20 @@ classDiagram
 
 ```
 steps/step-04-adk-agent/
-├── README.md             # This detailed guide
-├── package.json          # Step dependencies (@google/adk, ollama)
+├── README.md                 # This detailed guide
+├── package.json              # Step dependencies (@google/adk, @google/adk-devtools, ollama)
 ├── data/
-│   └── mutable/          # Live markdown knowledge base
+│   └── mutable/              # Live markdown knowledge base
+├── krakow_cultural_agent/
+│   └── agent.js              # Pure JavaScript rootAgent exported for Google ADK CLI
 ├── src/
-│   ├── agent.js          # Google ADK Agent orchestrator & OllamaLlm
-│   ├── ragEngine.js      # Dual-layer RAG engine from Step 2
-│   └── tools.js          # Native tools from Step 3
+│   ├── agent.js              # Google ADK Agent orchestrator & OllamaLlm
+│   ├── ragEngine.js          # Dual-layer RAG engine from Step 2
+│   └── tools.js              # Native tools from Step 3
 └── test/
-    ├── agent.test.js     # Agent lifecycle, tool loops & fallback tests
-    ├── ragEngine.test.js # RAG tests
-    └── tools.test.js     # Tool execution tests
+    ├── agent.test.js         # Agent lifecycle, tool loops & fallback tests
+    ├── ragEngine.test.js     # RAG tests
+    └── tools.test.js         # Tool execution tests
 ```
 
 ---
@@ -102,13 +104,24 @@ KrakowCulturalAgent Component Tests
   [PASS] executes tool directly with input arguments (1.7ms)
   [PASS] handles unknown tool execution gracefully without throwing (0.5ms)
   [PASS] provides grounded fallback when Ollama daemon is offline (60.7ms)
+  [PASS] loads krakow_cultural_agent/agent.js as pure JavaScript rootAgent for Google ADK CLI (8.0ms)
 [PASS] KrakowCulturalAgent Component Tests (73.9ms)
 ...
-INFO: tests 23
+INFO: tests 24
 INFO: suites 3
-INFO: pass 23
+INFO: pass 24
 INFO: fail 0
 ```
+
+### 4. Launch the Google ADK Web Dev-UI
+
+To visually inspect the agent graph, tool signatures, and traces in Google ADK's native Web UI:
+```bash
+npm run adk
+# or: npx adk web . --port 8000
+```
+
+Open your browser to: **`http://localhost:8000/dev-ui`**. Select `krakow_cultural_agent` to test the agent interactively.
 
 ---
 
