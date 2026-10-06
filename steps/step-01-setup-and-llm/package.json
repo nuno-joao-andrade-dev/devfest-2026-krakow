@@ -9,7 +9,7 @@
     "test": "node --test test/**/*.test.js"
   },
   "dependencies": {
-    "dotenv": "^17.2.4",
-    "ollama": "^0.5.17"
+    "dotenv": "^18.0.5",
+    "ollama": "^0.6.4"
   }
 }
