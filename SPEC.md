@@ -17,7 +17,7 @@ Build a code-first, deeply knowledgeable AI agent acting as a Tour Guide, Histor
     *   Zero Python runtime or dependencies. All previous Python agent prototypes are removed.
 2.  **Local LLM Model:**
     *   Configurable via the `OLLAMA_MODEL` environment variable (secondary fallback `MODEL`, default `gemma4:e2b`).
-    *   Supports alternative models seamlessly (such as `gemma2:2b`, `qwen2.5:3b`, etc.) without code modifications.
+    *   Supports alternative models seamlessly (such as `qwen2.5:3b`, `llama3.2:3b`, etc.) without code modifications.
     *   Orchestrated locally via the Ollama daemon (`http://127.0.0.1:11434`, configurable via `OLLAMA_HOST`).
     *   Chosen for minimal GPU memory overhead (~1.8 GB VRAM) and fast local inference latency.
 3.  **AI Orchestration Framework:**

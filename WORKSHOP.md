@@ -13,7 +13,7 @@ Welcome to the **Google ADK & Gemma 4 Masterclass**! In this comprehensive hands
 Modern AI agent tutorials often prescribe complex, multi-service architectures: cloud LLM APIs with unpredictable billing, heavyweight Python runtimes, external vector databases (Pinecone, Chroma, Milvus), embedding models competing for GPU memory, and slow multi-hop network round trips.
 
 This workshop demonstrates a modern, high-performance alternative:
-1. **Local-First Inference:** Run local models (such as Google's **Gemma 4** `gemma4:e2b` or **Gemma 2** `gemma2:2b`) via **Ollama**, configured dynamically via the `OLLAMA_MODEL` environment variable. This delivers sub-second response times with zero cloud API costs, complete privacy, and full offline resilience.
+1. **Local-First Inference:** Run local models (such as Google's **Gemma 4** `gemma4:e2b`) via **Ollama**, configured dynamically via the `OLLAMA_MODEL` environment variable. This delivers sub-second response times with zero cloud API costs, complete privacy, and full offline resilience.
 2. **In-Memory Dual-Layer RAG:** Eliminate external vector database bloat with a lightweight, native JavaScript lexical search engine that supports Polish diacritics, BM25 term scoring, and **zero-downtime hot-reloading** of markdown data via filesystem modification time (`mtime`) caching.
 3. **Native Function Tools:** Bind asynchronous JavaScript domain tools (Hejnał Mariacki time math, Wawel Castle ticket inventory simulator, curated Kraków dining directory) declared with strict JSON Schema contracts.
 4. **Google ADK Orchestration:** Implement official Google Agent Development Kit (`@google/adk`) patterns: custom `BaseLlm` streaming generator adapters, typed `FunctionTool` wrappers, prompt grounding, and autonomous multi-turn loops powered by `InMemoryRunner`.
@@ -158,23 +158,21 @@ Ensure the following tools are installed before the workshop:
    ```
 
 3. **Local Instruction Model (Configurable via `OLLAMA_MODEL`):**
-   Pre-pull the lightweight, high-performance instruction model (default `gemma4:e2b`, or alternative `gemma2:2b` for lower-RAM machines):
+   Pre-pull the lightweight, high-performance instruction model (default `gemma4:e2b`):
    ```bash
    ollama pull gemma4:e2b
-   # Or for machines with < 8 GB RAM / VRAM:
-   # ollama pull gemma2:2b
    ```
    Verify local model availability:
    ```bash
    ollama list
-   # Should list your installed models (e.g. gemma4:e2b, gemma2:2b)
+   # Should list your installed models (e.g. gemma4:e2b)
    ```
 
 > [!IMPORTANT]
-> **Conference WiFi Notice:** Workshop attendees should pull their target model (`gemma4:e2b` or `gemma2:2b`) before arriving at the venue to avoid bandwidth congestion on conference Wi-Fi networks.
+> **Conference WiFi Notice:** Workshop attendees should pull their target model (`gemma4:e2b`) before arriving at the venue to avoid bandwidth congestion on conference Wi-Fi networks.
 >
 > **Configuring the Active Model:**  
-> The workshop application never hardcodes the model name. Set `OLLAMA_MODEL=gemma4:e2b` (or `OLLAMA_MODEL=gemma2:2b`) in your `.env` file or export it directly in your terminal.
+> The workshop application never hardcodes the model name. Set `OLLAMA_MODEL=gemma4:e2b` in your `.env` file or export it directly in your terminal.
 
 ---
 
@@ -250,7 +248,7 @@ npm test    # Runs the 5 unit tests
 #### 4. Participant Exercises & Challenges
 *   **Exercise 1.1 (Temperature Tuning):** Open `src/llm.js` and modify `options.temperature` from `0.2` to `0.9`. Re-run `npm start` several times and observe how the output variety changes compared to low-temperature deterministic mode.
 *   **Exercise 1.2 (Offline Graceful Degradation):** Temporarily stop the Ollama daemon (`sudo systemctl stop ollama` or stop the desktop app) and run `npm start`. Notice how `checkOllamaHealth` returns `{ online: false }` without crashing the application process.
-*   **Exercise 1.3 (Dynamic Model Switching via Environment Variables):** Without modifying code, switch your target model in `.env` to `OLLAMA_MODEL=gemma2:2b` (or pass `OLLAMA_MODEL=gemma2:2b npm start`). Verify that `checkOllamaHealth()` dynamically inspects and confirms the target model.
+*   **Exercise 1.3 (Dynamic Model Switching via Environment Variables):** Without modifying code, switch your target model in `.env` to `OLLAMA_MODEL=qwen2.5:3b` (or pass `OLLAMA_MODEL=qwen2.5:3b npm start`). Verify that `checkOllamaHealth()` dynamically inspects and confirms the target model.
 
 ---
 
@@ -549,10 +547,10 @@ npm test
 | Symptom / Error | Root Cause | Immediate Remediation |
 | :--- | :--- | :--- |
 | `ECONNREFUSED 127.0.0.1:11434` | Ollama daemon is not running in background. | Run `ollama serve` in a dedicated terminal window. |
-| `model '<name>' not found` | The configured model weights were not pulled. | Run `ollama pull <name>` (e.g. `ollama pull gemma4:e2b` or `ollama pull gemma2:2b`) or update `OLLAMA_MODEL` in `.env`. |
+| `model '<name>' not found` | The configured model weights were not pulled. | Run `ollama pull <name>` (e.g. `ollama pull gemma4:e2b`) or update `OLLAMA_MODEL` in `.env`. |
 | `EADDRINUSE: address already in use :::3030` | Another process is holding port 3030. | Identify and kill the process: `lsof -ti:3030 \| xargs kill -9` or change `PORT` in `.env`. |
 | `EADDRINUSE: address already in use :::8000` | Another process is holding port 8000. | Change `ADK_PORT=8001` in `.env`. |
-| Out of Memory (OOM) during inference | High background memory usage on host. | Switch to a lighter model (e.g. `OLLAMA_MODEL=gemma2:2b`), or close memory-heavy apps. |
+| Out of Memory (OOM) during inference | High background memory usage on host. | Switch to a lighter model or quantization, or close memory-heavy apps. |
 
 ---
 

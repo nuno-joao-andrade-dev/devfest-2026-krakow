@@ -31,12 +31,10 @@ flowchart LR
 Before starting this step, verify that you have:
 1. **Node.js LTS** (v20+ or v22+): Check with `node -v`
 2. **Ollama CLI** installed on your machine: Check with `ollama --version`
-3. The local instruction model pulled via Ollama (configured via `OLLAMA_MODEL`, default `gemma4:e2b` or alternative `gemma2:2b`):
+3. The local instruction model pulled via Ollama (configured via `OLLAMA_MODEL`, default `gemma4:e2b`):
    ```bash
-   # Pull default model (or any model of your choice)
+   # Pull default model
    ollama pull gemma4:e2b
-   # Or for lower RAM machines:
-   # ollama pull gemma2:2b
    ```
    *(The model is entirely configurable via the `OLLAMA_MODEL` environment variable!)*
 
@@ -61,14 +59,14 @@ cp .env.example .env
 Default contents of `.env`:
 ```env
 OLLAMA_HOST=http://127.0.0.1:11434
-# Local model to use (e.g. gemma4:e2b or gemma2:2b)
+# Local model to use (e.g. gemma4:e2b)
 OLLAMA_MODEL=gemma4:e2b
 ```
 
 > **Configuring the Model via Environment Variables:**  
-> The model name is **not hardcoded**. It is loaded dynamically via `process.env.OLLAMA_MODEL` (or `process.env.MODEL`), defaulting to `gemma4:e2b`. You can test different local models (e.g. `gemma2:2b`) without modifying source code by updating `.env` or setting the variable directly in your shell:
+> The model name is **not hardcoded**. It is loaded dynamically via `process.env.OLLAMA_MODEL` (or `process.env.MODEL`), defaulting to `gemma4:e2b`. You can test different local models (e.g. `qwen2.5:3b`) without modifying source code by updating `.env` or setting the variable directly in your shell:
 > ```bash
-> export OLLAMA_MODEL=gemma2:2b
+> export OLLAMA_MODEL=gemma4:e2b
 > npm start
 > ```
 
@@ -114,7 +112,7 @@ export const OLLAMA_MODEL = process.env.OLLAMA_MODEL || process.env.MODEL || 'ge
 ```
 *   The model identifier is **never hardcoded** in business logic.
 *   Priority order: `process.env.OLLAMA_MODEL` → `process.env.MODEL` → `'gemma4:e2b'`.
-*   Developers can seamlessly swap between Gemma variants (`gemma4:e2b`, `gemma2:2b`, etc.) without altering code.
+*   Developers can seamlessly swap between models (`gemma4:e2b`, `qwen2.5:3b`, etc.) without altering code.
 
 ### 2. Creating the Ollama Client
 ```javascript
@@ -173,8 +171,8 @@ export async function queryGemma(prompt, options = {}) {
 | Issue | Cause | Solution |
 | :--- | :--- | :--- |
 | `ECONNREFUSED 127.0.0.1:11434` | The Ollama daemon is not running | Run `ollama serve` in a background terminal. |
-| `model '<name>' not found` | The model weights are not downloaded | Run `ollama pull <name>` (e.g. `ollama pull gemma4:e2b` or `ollama pull gemma2:2b`), or set `OLLAMA_MODEL` to an installed model. |
-| Out of Memory (OOM) | System RAM/VRAM is exhausted | Switch to a lighter model by setting `OLLAMA_MODEL=gemma2:2b` in `.env`. |
+| `model '<name>' not found` | The model weights are not downloaded | Run `ollama pull <name>` (e.g. `ollama pull gemma4:e2b`), or set `OLLAMA_MODEL` to an installed model. |
+| Out of Memory (OOM) | System RAM/VRAM is exhausted | Close memory-heavy applications or switch to a lighter model in `.env`. |
 
 ---
 

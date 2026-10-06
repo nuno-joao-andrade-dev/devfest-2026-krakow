@@ -31,7 +31,7 @@ Here is the concrete architectural breakdown of why:
 
 ### 2. Eliminating the "Double Inference" Latency & VRAM Tax
 Traditional vector search requires computing high-dimensional floating-point embeddings (e.g., 768 or 1536 floating-point values) for every incoming user prompt before retrieval can even begin:
-*   **GPU VRAM Competition:** If running locally, you must host an embedding model (like `nomic-embed-text` or `all-minilm`) in memory alongside our primary generative LLM (e.g. `gemma4:e2b` or `gemma2:2b` configured via `OLLAMA_MODEL`). On constrained hardware (edge devices, laptops, tourist kiosks), this consumes 500MB to 1.5GB of precious GPU VRAM that should belong entirely to the generative model's KV cache and context window.
+*   **GPU VRAM Competition:** If running locally, you must host an embedding model (like `nomic-embed-text` or `all-minilm`) in memory alongside our primary generative LLM (e.g. `gemma4:e2b` configured via `OLLAMA_MODEL`). On constrained hardware (edge devices, laptops, tourist kiosks), this consumes 500MB to 1.5GB of precious GPU VRAM that should belong entirely to the generative model's KV cache and context window.
 *   **Latency Penalty:** Calculating the query vector embedding locally adds 50ms to 200ms of pure latency to every request. If done via an external embedding API, you incur round-trip HTTP overhead, DNS lookups, authentication handshakes, and third-party rate limits.
 *   **The In-Memory Lexical Alternative:** Our in-memory lexical tokenizer and BM25 scorer operate directly on raw string tokens in CPU memory. Retrieval over hundreds of chunks takes **under 2 milliseconds**—an order of magnitude faster than generating a single embedding vector.
 

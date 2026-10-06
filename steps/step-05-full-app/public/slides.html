@@ -1191,7 +1191,7 @@ section.section-header p {
   <div class="card-green">
     <h3>The Local-First Modern Standard</h3>
     <ul>
-      <li><strong>100% On-Device:</strong> Local model (Gemma 4 <code>gemma4:e2b</code> or Gemma 2 <code>gemma2:2b</code> via <code>OLLAMA_MODEL</code>) runs on user hardware via Ollama.</li>
+      <li><strong>100% On-Device:</strong> Local model (Gemma 4 <code>gemma4:e2b</code> via <code>OLLAMA_MODEL</code>) runs on user hardware via Ollama.</li>
       <li><strong>Zero External Vector DB:</strong> In-memory BM25 retrieval finishes in <strong>&lt; 2 milliseconds</strong>.</li>
       <li><strong>Zero-Downtime Hot Reload:</strong> Edit markdown files live without server restarts.</li>
       <li><strong>Unified Node.js ESM:</strong> Google ADK Agent + Express SPA in a single process.</li>
@@ -2002,7 +2002,7 @@ section.section-header p {
 <tr>
 <td style="text-align:center"><strong>01</strong></td>
 <td style="text-align:left"><strong>Setup &amp; Local LLM</strong></td>
-<td style="text-align:left">Ollama daemon, Gemma 4 / Gemma 2 via <code>OLLAMA_MODEL</code>, Node.js client</td>
+<td style="text-align:left">Ollama daemon, Gemma 4 via <code>OLLAMA_MODEL</code>, Node.js client</td>
 <td style="text-align:center">5 tests</td>
 </tr>
 <tr>
@@ -3231,8 +3231,7 @@ npm -v    # Expected: 10.x.x+</code></pre>
     <pre><code>brew install ollama</code></pre>
     <p><strong>Start Daemon & Pull Model:</strong></p>
     <pre><code>ollama serve              # Start daemon in terminal
-ollama pull gemma4:e2b    # Default model (~1.8 GB)
-# Fallback: ollama pull gemma2:2b</code></pre>
+ollama pull gemma4:e2b    # Default model (~1.8 GB)</code></pre>
   </div>
 </div>
 <footer>Kraków Cultural AI Assistant: Google ADK &amp; Gemma 4 Workshop</footer>
@@ -3616,7 +3615,7 @@ section.section-header p {
 <div class="grid-3">
   <div class="card">
     <h3>High-Speed Inference</h3>
-    <p>Runs locally via Ollama with fast CPU/GPU inference (~1.8 GB VRAM for <code>gemma4:e2b</code> or <code>gemma2:2b</code>).</p>
+    <p>Runs locally via Ollama with fast CPU/GPU inference (~1.8 GB VRAM for <code>gemma4:e2b</code>).</p>
   </div>
   <div class="card">
     <h3>Dynamic Configuration</h3>
@@ -3631,7 +3630,6 @@ section.section-header p {
   <strong>Verify Local Setup in Terminal:</strong>
   <pre><code>ollama serve              # Ensure daemon is running
 ollama pull gemma4:e2b    # Default model (~1.8 GB)
-# Or for lower RAM: ollama pull gemma2:2b
 export OLLAMA_MODEL=gemma4:e2b</code></pre>
 </div>
 <footer>Kraków Cultural AI Assistant: Google ADK &amp; Gemma 4 Workshop</footer>
@@ -15261,7 +15259,7 @@ section.section-header p {
 <tr>
 <td style="text-align:left">Out of Memory (OOM)</td>
 <td style="text-align:left">System RAM constrained</td>
-<td style="text-align:left">Switch to lighter model: <code>OLLAMA_MODEL=gemma2:2b</code>.</td>
+<td style="text-align:left">Close background apps or switch model in <code>.env</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left">Student stuck on code step</td>

@@ -34,7 +34,7 @@ The Krakow Cultural AI Assistant is built according to the **Google ADK (Agent D
 | :--- | :--- | :--- | :--- |
 | **Runtime** | Node.js (ESM `import/export`) | v24+ / LTS | Core application runtime |
 | **AI Framework** | Google ADK (`@google/adk`) | v2.1.0 (Official) | Official Google Agent Development Kit for Node.js (`Agent`, `FunctionTool`, `BaseLlm`, `InMemoryRunner`, `MCPToolset`) |
-| **Local LLM** | Gemma (Instruction-Tuned, e.g. `gemma4:e2b`, `gemma2:2b`) | Configured via `OLLAMA_MODEL` | Local on-device inference via Ollama (`http://localhost:11434`) |
+| **Local LLM** | Gemma 4 (Instruction-Tuned, `gemma4:e2b`) | Configured via `OLLAMA_MODEL` | Local on-device inference via Ollama (`http://localhost:11434`) |
 | **Search Protocol** | Model Context Protocol (`@modelcontextprotocol/sdk`) | ^1.27.0 | Open standard stdio MCP server for live Google search & dynamic cross-content |
 | **Server & API** | Express.js | ^5.2.1 | REST API & static frontend server (No Vite) |
 | **Local RAG Engine** | Custom JavaScript Engine | From Scratch | In-memory tokenization, BM25 scoring & mtime cache |
@@ -100,16 +100,14 @@ The agent has native bindings to three asynchronous tools declared with standard
 
 ### Step 1: Install Ollama & Pull Your Target Model
 
-Start the Ollama daemon and pull the instruction model (default `gemma4:e2b`, or `gemma2:2b` for lower-RAM setups):
+Start the Ollama daemon and pull the instruction model (`gemma4:e2b`):
 
 ```bash
 # Start Ollama service (if not already running as a system daemon)
 ollama serve
 
-# Pull your preferred model
+# Pull your model
 ollama pull gemma4:e2b
-# Or for machines with < 8 GB RAM:
-# ollama pull gemma2:2b
 
 # (Optional) Test model directly in terminal
 ollama run gemma4:e2b
@@ -149,7 +147,7 @@ MUTABLE_DATA_DIR=data/mutable
 
 | Variable | Description | Default | Alternative Examples |
 | :--- | :--- | :--- | :--- |
-| `OLLAMA_MODEL` | Local Ollama model identifier | `gemma4:e2b` | `gemma2:2b`, `qwen2.5:3b` |
+| `OLLAMA_MODEL` | Local Ollama model identifier | `gemma4:e2b` | `qwen2.5:3b`, `llama3.2:3b` |
 | `OLLAMA_HOST` | Ollama daemon HTTP endpoint | `http://127.0.0.1:11434` | `http://192.168.1.100:11434` |
 | `PORT` | Web app & REST API port | `3030` | `8080`, `3000` |
 | `ADK_PORT` | Google ADK Web Dev-UI port | `8000` | `8001`, `9000` |
@@ -159,7 +157,7 @@ MUTABLE_DATA_DIR=data/mutable
 > **Dynamic Model Override:**  
 > You can also override the model directly when launching scripts:
 > ```bash
-> OLLAMA_MODEL=gemma2:2b npm start
+> OLLAMA_MODEL=gemma4:e2b npm start
 > ```
 
 ---

@@ -456,7 +456,7 @@ Introduce yourself and set the tone: we are here to write real, production-grade
   <div class="card-green">
     <h3>The Local-First Modern Standard</h3>
     <ul>
-      <li><strong>100% On-Device:</strong> Local model (Gemma 4 <code>gemma4:e2b</code> or Gemma 2 <code>gemma2:2b</code> via <code>OLLAMA_MODEL</code>) runs on user hardware via Ollama.</li>
+      <li><strong>100% On-Device:</strong> Local model (Gemma 4 <code>gemma4:e2b</code> via <code>OLLAMA_MODEL</code>) runs on user hardware via Ollama.</li>
       <li><strong>Zero External Vector DB:</strong> In-memory BM25 retrieval finishes in <strong>&lt; 2 milliseconds</strong>.</li>
       <li><strong>Zero-Downtime Hot Reload:</strong> Edit markdown files live without server restarts.</li>
       <li><strong>Unified Node.js ESM:</strong> Google ADK Agent + Express SPA in a single process.</li>
@@ -519,7 +519,7 @@ Walk through the 3 pillars of the architecture: Express for the client app on 30
 
 | Step | Milestone | Tech & Capabilities | Automated Tests |
 | :---: | :--- | :--- | :---: |
-| **01** | **Setup & Local LLM** | Ollama daemon, Gemma 4 / Gemma 2 via `OLLAMA_MODEL`, Node.js client | 5 tests |
+| **01** | **Setup & Local LLM** | Ollama daemon, Gemma 4 via `OLLAMA_MODEL`, Node.js client | 5 tests |
 | **02** | **Dual-Layer RAG Engine** | In-memory BM25, Polish diacritics, markdown chunking, `mtime` hot-reload | 9 tests |
 | **03** | **Native Tool Binding** | JSON Schema declarations, Hejnał time math, Wawel ticket simulator | 7 tests |
 | **04** | **Google ADK Orchestration** | `@google/adk`, `BaseLlm`, `FunctionTool`, `InMemoryRunner` tool loops | 23 tests |
@@ -608,8 +608,7 @@ npm -v    # Expected: 10.x.x+</code></pre>
     <pre><code>brew install ollama</code></pre>
     <p><strong>Start Daemon & Pull Model:</strong></p>
     <pre><code>ollama serve              # Start daemon in terminal
-ollama pull gemma4:e2b    # Default model (~1.8 GB)
-# Fallback: ollama pull gemma2:2b</code></pre>
+ollama pull gemma4:e2b    # Default model (~1.8 GB)</code></pre>
   </div>
 </div>
 
@@ -624,7 +623,7 @@ Guide attendees through installing Node.js LTS via NVM and Ollama on Linux/macOS
 <div class="grid-3">
   <div class="card">
     <h3>High-Speed Inference</h3>
-    <p>Runs locally via Ollama with fast CPU/GPU inference (~1.8 GB VRAM for <code>gemma4:e2b</code> or <code>gemma2:2b</code>).</p>
+    <p>Runs locally via Ollama with fast CPU/GPU inference (~1.8 GB VRAM for <code>gemma4:e2b</code>).</p>
   </div>
   <div class="card">
     <h3>Dynamic Configuration</h3>
@@ -640,7 +639,6 @@ Guide attendees through installing Node.js LTS via NVM and Ollama on Linux/macOS
   <strong>Verify Local Setup in Terminal:</strong>
   <pre><code>ollama serve              # Ensure daemon is running
 ollama pull gemma4:e2b    # Default model (~1.8 GB)
-# Or for lower RAM: ollama pull gemma2:2b
 export OLLAMA_MODEL=gemma4:e2b</code></pre>
 </div>
 
@@ -1552,7 +1550,7 @@ Guide attendees through running Step 06. Have them click the new MCP prompt chip
 | `model '<name>' not found` | Weights missing | Run `ollama pull <name>` or set `OLLAMA_MODEL` in `.env`. |
 | `EADDRINUSE: :::3030` | Port 3030 collision | Run `lsof -ti:3030 \| xargs kill -9` or update `.env`. |
 | `EADDRINUSE: :::8000` | Port 8000 collision | Set `ADK_PORT=8001` in `.env`. |
-| Out of Memory (OOM) | System RAM constrained | Switch to lighter model: `OLLAMA_MODEL=gemma2:2b`. |
+| Out of Memory (OOM) | System RAM constrained | Close background apps or switch model in `.env`. |
 | Student stuck on code step | Syntax or typo | Guide them to jump directly to the next step folder! |
 
 <!-- _notes:

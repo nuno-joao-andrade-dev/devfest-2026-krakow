@@ -109,7 +109,7 @@ PORT=3030
 ADK_PORT=8000
 HOST=0.0.0.0
 OLLAMA_HOST=http://127.0.0.1:11434
-# Configurable via OLLAMA_MODEL (e.g. gemma4:e2b or gemma2:2b)
+# Configurable via OLLAMA_MODEL (e.g. gemma4:e2b)
 OLLAMA_MODEL=gemma4:e2b
 ```
 
