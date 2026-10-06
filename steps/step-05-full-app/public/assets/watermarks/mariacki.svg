@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- St. Mary's Basilica (Kościół Mariacki) Kraków Architectural Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Ground Line -->
+    <path d="M20 330 L480 330" />
+    <path d="M40 335 L460 335" stroke-dasharray="4 6" opacity="0.6" />
+
+    <!-- Higher Hejnał Tower (North Tower - 82m) -->
+    <!-- Tower Body & Buttresses -->
+    <path d="M120 330 L120 160 L135 160 L135 130 L185 130 L185 160 L200 160 L200 330" />
+    <path d="M125 330 L125 165 M195 330 L195 165" />
+    <path d="M135 330 L135 160 M185 330 L185 160" />
+    
+    <!-- Hejnał Windows (Four cardinal directions) -->
+    <rect x="150" y="138" width="20" height="24" rx="10" />
+    <path d="M160 138 L160 162 M150 150 L170 150" />
+    
+    <!-- Trumpeter Gallery Balcony -->
+    <path d="M130 130 L190 130" stroke-width="2.5" />
+    <path d="M132 134 L188 134" />
+    
+    <!-- Hejnał Octagonal Gothic Spire -->
+    <path d="M135 130 L160 20 L185 130" stroke-width="2" />
+    <path d="M160 20 L160 130" stroke-dasharray="2 4" />
+    <path d="M148 130 L160 20 L172 130" opacity="0.7" />
+    
+    <!-- Golden Crown Motif around Spire -->
+    <path d="M145 65 L152 55 L160 62 L168 55 L175 65 Z" stroke-width="1.5" />
+    <path d="M143 66 L177 66" />
+    
+    <!-- Cross atop Hejnał Spire -->
+    <path d="M160 20 L160 8 M155 13 L165 13" stroke-width="2" />
+    
+    <!-- 4 Corner Turrets around High Spire -->
+    <path d="M125 130 L125 100 L132 80 L138 100 L138 130" />
+    <path d="M132 80 L132 74 M130 76 L134 76" />
+    <path d="M182 130 L182 100 L188 80 L195 100 L195 130" />
+    <path d="M188 80 L188 74 M186 76 L190 76" />
+
+    <!-- Lancet Windows in Hejnał Tower -->
+    <path d="M145 190 Q160 170 175 190 L175 240 L145 240 Z" />
+    <path d="M160 180 L160 240 M145 210 L175 210" />
+    <path d="M145 260 Q160 245 175 260 L175 300 L145 300 Z" />
+    <path d="M160 252 L160 300" />
+
+    <!-- Lower Bell Tower (South Tower - 69m) -->
+    <path d="M250 330 L250 175 L260 175 L260 155 L310 155 L310 175 L320 175 L320 330" />
+    <path d="M255 330 L255 180 M315 330 L315 180" />
+    <path d="M265 330 L265 175 M305 330 L305 175" />
+    
+    <!-- Renaissance Helm with Lantern -->
+    <path d="M258 155 C258 125 285 110 285 100 C285 110 312 125 312 155 Z" stroke-width="1.8" />
+    <rect x="278" y="75" width="14" height="25" rx="3" />
+    <path d="M276 75 C276 60 285 52 285 52 C285 52 294 60 294 75 Z" />
+    <path d="M285 52 L285 40 M281 45 L289 45" stroke-width="2" />
+    
+    <!-- Lower Tower Windows & Clock -->
+    <circle cx="285" cy="185" r="14" />
+    <path d="M285 175 L285 185 L292 185" stroke-width="1.5" />
+    <path d="M273 220 Q285 205 297 220 L297 265 L273 265 Z" />
+    <path d="M285 212 L285 265" />
+    <path d="M273 285 Q285 275 297 285 L297 315 L273 315 Z" />
+
+    <!-- Central Nave & Facade (Connecting the Towers) -->
+    <path d="M200 330 L200 200 L225 170 L250 200 L250 330" />
+    <!-- High Gothic Roof Ridge -->
+    <path d="M225 170 L225 140" stroke-width="1.5" />
+    <path d="M225 140 L225 132 M222 135 L228 135" stroke-width="1.8" />
+    
+    <!-- Great Lancet Window / Tracery in Center -->
+    <path d="M212 215 Q225 195 238 215 L238 270 L212 270 Z" stroke-width="1.5" />
+    <path d="M225 205 L225 270 M212 240 L238 240" />
+    <circle cx="225" cy="222" r="5" />
+    
+    <!-- Main Entrance Portal -->
+    <path d="M215 330 L215 295 Q225 285 235 295 L235 330 Z" stroke-width="2" />
+    <path d="M218 330 L218 298 Q225 290 232 298 L232 330" />
+    
+    <!-- Decorative side chapels -->
+    <path d="M90 330 L90 280 L120 250 L120 330" />
+    <path d="M95 330 L95 285 Q105 275 115 285 L115 330" />
+    <path d="M320 330 L320 250 L350 280 L350 330" />
+    <path d="M325 330 L325 285 Q335 275 345 285 L345 330" />
+  </g>
+</svg>

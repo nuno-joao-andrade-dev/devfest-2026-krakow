@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- Barbakan Krakowski & Brama Floriańska Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Defensive Moat & Ground Line -->
+    <path d="M10 330 L490 330" stroke-width="2" />
+    <path d="M25 336 L475 336" stroke-dasharray="4 6" opacity="0.6" />
+
+    <!-- St. Florian's Gate (Brama Floriańska - Gothic City Gate in Background) -->
+    <path d="M300 330 L300 130 L370 130 L370 330" opacity="0.7" />
+    <path d="M305 330 L305 135 M365 330 L365 135" opacity="0.6" />
+    <!-- Gate Crenellations -->
+    <path d="M295 130 L375 130" stroke-width="2" />
+    <path d="M300 118 L370 118" />
+    <path d="M305 118 L305 130 M320 118 L320 130 M335 118 L335 130 M350 118 L350 130 M365 118 L365 130" />
+    <!-- Baroque Steep Helmet Spire atop Brama Floriańska -->
+    <path d="M305 118 C305 80 335 60 335 50 C335 60 365 80 365 118 Z" stroke-width="2" />
+    <rect x="328" y="25" width="14" height="25" rx="3" />
+    <path d="M326 25 C326 15 335 10 335 10 C335 10 344 15 344 25 Z" />
+    <path d="M335 10 L335 0 M331 4 L339 4" stroke-width="2" />
+    <!-- Relief of Piast Eagle on Gate -->
+    <circle cx="335" cy="165" r="12" />
+    <path d="M330 165 L335 160 L340 165" />
+    <!-- Gate Gothic Arch Entrance -->
+    <path d="M318 330 L318 290 Q335 275 352 290 L352 330" stroke-width="2" />
+
+    <!-- The Circular Barbican (Barbakan - Round Gothic Fortification) -->
+    <!-- Massive Circular Walls with 3-meter thick brickwork -->
+    <path d="M60 330 L60 210 Q200 190 340 210 L340 330" stroke-width="2.2" />
+    
+    <!-- Machicolations (Overhanging Defensive Corbel Gallery) -->
+    <path d="M50 210 Q200 188 350 210" stroke-width="2.5" />
+    <path d="M55 198 Q200 176 345 198" stroke-width="1.8" />
+    
+    <!-- Corbel Arch Brackets along the Machicolations -->
+    <path d="M65 210 L65 198 M85 208 L85 196 M105 206 L105 194 M125 204 L125 192 M145 202 L145 190 M165 200 L165 188 M185 199 L185 187 M205 199 L205 187 M225 200 L225 188 M245 202 L245 190 M265 204 L265 192 M285 206 L285 194 M305 208 L305 196 M325 210 L325 198" />
+
+    <!-- 7 Iconic Gothic Watchturrets (Wieżyczki) Rising from the Barbican -->
+    <!-- Turret 1 (Far Left) -->
+    <path d="M65 198 L65 160 L78 120 L90 160 L90 198" />
+    <path d="M78 120 L78 112 M76 114 L80 114" />
+    <!-- Turret 2 -->
+    <path d="M110 194 L110 155 L122 115 L135 155 L135 194" />
+    <path d="M122 115 L122 107 M120 109 L124 109" />
+    <!-- Turret 3 -->
+    <path d="M155 190 L155 150 L168 110 L180 150 L180 190" />
+    <path d="M168 110 L168 102 M166 104 L170 104" />
+    <!-- Turret 4 (Central Highest Turret) -->
+    <path d="M195 187 L195 140 L210 95 L225 140 L225 187" stroke-width="2" />
+    <path d="M210 95 L210 85 M206 88 L214 88" stroke-width="2" />
+    <rect x="204" y="148" width="12" height="18" rx="2" />
+    <!-- Turret 5 -->
+    <path d="M240 190 L240 150 L252 110 L265 150 L265 190" />
+    <path d="M252 110 L252 102 M250 104 L254 104" />
+    <!-- Turret 6 -->
+    <path d="M285 194 L285 155 L298 115 L310 155 L310 194" />
+    <path d="M298 115 L298 107 M296 109 L300 109" />
+    <!-- Turret 7 (Far Right) -->
+    <path d="M325 198 L325 160 L338 120 L350 160 L350 198" />
+    <path d="M338 120 L338 112 M336 114 L340 114" />
+
+    <!-- Multiple Tiers of Arrow Slit Embrasures (Strzelnice) in Barbican -->
+    <!-- Tier 1 Cross-Shaped Gun Loops -->
+    <path d="M80 230 L80 245 M75 235 L85 235" />
+    <path d="M115 228 L115 243 M110 233 L120 233" />
+    <path d="M150 226 L150 241 M145 231 L155 231" />
+    <path d="M185 225 L185 240 M180 230 L190 230" />
+    <path d="M220 225 L220 240 M215 230 L225 230" />
+    <path d="M255 226 L255 241 M250 231 L260 231" />
+    <path d="M290 228 L290 243 M285 233 L295 233" />
+    <path d="M320 230 L320 245 M315 235 L325 235" />
+
+    <!-- Tier 2 Vertical Keyhole Embrasures -->
+    <path d="M90 270 L90 290" stroke-width="2" />
+    <circle cx="90" cy="270" r="3" />
+    <path d="M130 268 L130 288" stroke-width="2" />
+    <circle cx="130" cy="268" r="3" />
+    <path d="M170 267 L170 287" stroke-width="2" />
+    <circle cx="170" cy="267" r="3" />
+    <path d="M210 266 L210 286" stroke-width="2" />
+    <circle cx="210" cy="266" r="3" />
+    <path d="M250 267 L250 287" stroke-width="2" />
+    <circle cx="250" cy="267" r="3" />
+    <path d="M290 268 L290 288" stroke-width="2" />
+    <circle cx="290" cy="268" r="3" />
+
+    <!-- Drawbridge / Neck Connection Gateway -->
+    <path d="M340 270 L400 270 L400 330" opacity="0.6" />
+    <path d="M340 300 L400 300" stroke-dasharray="3 3" opacity="0.5" />
+  </g>
+</svg>

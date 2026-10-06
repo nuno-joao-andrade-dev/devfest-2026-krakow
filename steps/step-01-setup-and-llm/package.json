@@ -1,0 +1,15 @@
+{
+  "name": "workshop-step-01-setup-and-llm",
+  "version": "1.0.0",
+  "description": "Step 1: Setting up Node.js environment, Ollama daemon, and local Gemma 4 model inference",
+  "type": "module",
+  "main": "src/llm.js",
+  "scripts": {
+    "start": "node src/llm.js",
+    "test": "node --test test/**/*.test.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "ollama": "^0.5.17"
+  }
+}

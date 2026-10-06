@@ -1,0 +1,22 @@
+{
+  "name": "step-06-google-search-mcp",
+  "version": "1.0.0",
+  "description": "Step 6: Google Search MCP integration for dynamic cross-content with Google ADK and Gemma 4",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/**/*.test.js",
+    "mcp": "node src/mcpServer.js"
+  },
+  "keywords": [
+    "google-adk",
+    "mcp",
+    "model-context-protocol",
+    "google-search",
+    "krakow",
+    "rag"
+  ],
+  "author": "Google DeepMind Advanced Agentic Coding",
+  "license": "Apache-2.0"
+}

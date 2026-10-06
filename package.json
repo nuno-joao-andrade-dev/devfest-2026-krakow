@@ -1,0 +1,46 @@
+{
+  "name": "devfest-krakow-2026-workshop",
+  "version": "1.0.0",
+  "description": "6-step hands-on progressive workshop building a Krakow Cultural AI Assistant with Google ADK, Gemma 4, local RAG, and Google Search MCP",
+  "type": "module",
+  "scripts": {
+    "start": "node steps/step-06-google-search-mcp/src/server.js",
+    "start:step-05": "node steps/step-05-full-app/src/server.js",
+    "start:step-06": "node steps/step-06-google-search-mcp/src/server.js",
+    "dev": "node --watch steps/step-06-google-search-mcp/src/server.js",
+    "test": "node --test steps/step-01-setup-and-llm/test/**/*.test.js && node --test steps/step-02-dual-layer-rag/test/**/*.test.js && node --test steps/step-03-native-tools/test/**/*.test.js && node --test steps/step-04-adk-agent/test/**/*.test.js && NODE_ENV=test node --test steps/step-05-full-app/test/**/*.test.js && NODE_ENV=test node --test steps/step-06-google-search-mcp/test/**/*.test.js",
+    "test:step-01": "node --test steps/step-01-setup-and-llm/test/**/*.test.js",
+    "test:step-02": "node --test steps/step-02-dual-layer-rag/test/**/*.test.js",
+    "test:step-03": "node --test steps/step-03-native-tools/test/**/*.test.js",
+    "test:step-04": "node --test steps/step-04-adk-agent/test/**/*.test.js",
+    "test:step-05": "NODE_ENV=test node --test steps/step-05-full-app/test/**/*.test.js",
+    "test:step-06": "NODE_ENV=test node --test steps/step-06-google-search-mcp/test/**/*.test.js",
+    "slides:build": "npx @marp-team/marp-cli SLIDES.md -o slides.html --html",
+    "slides:pdf": "node scripts/build-pdf.js",
+    "slides:watch": "npx @marp-team/marp-cli -s .",
+    "slides:serve": "node scripts/serve-slides.js"
+  },
+  "keywords": [
+    "krakow",
+    "workshop",
+    "gemma4",
+    "ollama",
+    "rag",
+    "mcp",
+    "model-context-protocol",
+    "google-adk",
+    "ai-agent"
+  ],
+  "author": "Google DeepMind Advanced Agentic Coding",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@google/adk": "^2.1.0",
+    "@google/adk-devtools": "^2.1.0",
+    "@google/genai": "^2.24.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "ollama": "^0.6.3",
+    "zod": "^4.6.5"
+  }
+}

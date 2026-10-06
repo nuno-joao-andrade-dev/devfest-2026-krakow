@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- Sukiennice (Cloth Hall) & Wieża Ratuszowa (Town Hall Tower) Kraków Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Main Market Square Pavement Ground Line -->
+    <path d="M10 330 L490 330" stroke-width="2" />
+    <path d="M30 335 L470 335" stroke-dasharray="4 6" opacity="0.6" />
+
+    <!-- Town Hall Tower (Wieża Ratuszowa - 70m Gothic Tower) -->
+    <!-- Tower Body & Buttresses -->
+    <path d="M50 330 L50 135 L115 135 L115 330" />
+    <path d="M55 330 L55 140 M110 330 L110 140" />
+    <!-- Gothic Diagonal Corner Buttress -->
+    <path d="M42 330 L42 220 L50 200" />
+    <path d="M42 220 L50 220" />
+    
+    <!-- Massive Baroque Helm atop Town Hall Tower -->
+    <path d="M45 135 L120 135" stroke-width="2.2" />
+    <path d="M50 135 C50 95 82.5 80 82.5 70 C82.5 80 115 95 115 135 Z" stroke-width="2" />
+    <!-- Octagonal Lantern with Open Arches -->
+    <rect x="73" y="45" width="19" height="25" rx="3" />
+    <path d="M78 45 L78 70 M87 45 L87 70" />
+    <!-- Upper Copper Cap & Spire -->
+    <path d="M71 45 C71 30 82.5 22 82.5 22 C82.5 22 94 30 94 45 Z" />
+    <path d="M82.5 22 L82.5 8 M78 14 L87 14" stroke-width="2" />
+
+    <!-- Town Hall Clock Faces -->
+    <circle cx="82.5" cy="165" r="15" />
+    <path d="M82.5 154 L82.5 165 L89 165" stroke-width="1.5" />
+    
+    <!-- Gothic Lancet Windows in Tower -->
+    <path d="M72 205 Q82.5 190 93 205 L93 245 L72 245 Z" />
+    <path d="M82.5 196 L82.5 245" />
+    <path d="M72 265 Q82.5 252 93 265 L93 295 L72 295 Z" />
+
+    <!-- Entrance Portal with Guard Lions Silhouette -->
+    <path d="M70 330 L70 305 Q82.5 295 95 305 L95 330 Z" stroke-width="2" />
+
+    <!-- Sukiennice (The Cloth Hall - Central Market Building) -->
+    <!-- Main Long Building Body -->
+    <path d="M125 330 L125 210 L480 210 L480 330" />
+
+    <!-- Famous Renaissance Attic (Attyka) with Mascaron Crests -->
+    <path d="M120 210 L485 210" stroke-width="2.5" />
+    <path d="M125 192 L480 192" stroke-width="1.8" />
+    <!-- Sculpted Mascaron Pinnacles & Volutes -->
+    <path d="M135 192 L135 178 Q142.5 170 150 178 L150 192" />
+    <path d="M165 192 L165 178 Q172.5 170 180 178 L180 192" />
+    <path d="M195 192 L195 178 Q202.5 170 210 178 L210 192" />
+    <path d="M225 192 L225 178 Q232.5 170 240 178 L240 192" />
+    
+    <!-- Central Neoclassical / Neo-Gothic Entrance Risalit & Loggia -->
+    <path d="M260 210 L260 160 L310 160 L310 210" stroke-width="2" />
+    <path d="M255 160 L315 160" stroke-width="2" />
+    <!-- Triangular Pediment with Krakow Coat of Arms Crest -->
+    <path d="M260 160 L285 130 L310 160 Z" stroke-width="2" />
+    <circle cx="285" cy="148" r="6" />
+    <!-- Pinaccles on Risalit -->
+    <path d="M258 130 L258 120 M312 130 L312 120" stroke-width="1.8" />
+    <path d="M285 130 L285 118" stroke-width="2" />
+
+    <!-- Further Mascaron Attic Crenellations -->
+    <path d="M330 192 L330 178 Q337.5 170 345 178 L345 192" />
+    <path d="M360 192 L360 178 Q367.5 170 375 178 L375 192" />
+    <path d="M390 192 L390 178 Q397.5 170 405 178 L405 192" />
+    <path d="M420 192 L420 178 Q427.5 170 435 178 L435 192" />
+    <path d="M450 192 L450 178 Q457.5 170 465 178 L465 192" />
+
+    <!-- Upper Story Renaissance Windows -->
+    <rect x="140" y="222" width="16" height="24" rx="2" />
+    <rect x="170" y="222" width="16" height="24" rx="2" />
+    <rect x="200" y="222" width="16" height="24" rx="2" />
+    <rect x="230" y="222" width="16" height="24" rx="2" />
+    
+    <rect x="270" y="175" width="30" height="30" rx="3" />
+    <path d="M285 175 L285 205 M270 190 L300 190" />
+
+    <rect x="340" y="222" width="16" height="24" rx="2" />
+    <rect x="370" y="222" width="16" height="24" rx="2" />
+    <rect x="400" y="222" width="16" height="24" rx="2" />
+    <rect x="430" y="222" width="16" height="24" rx="2" />
+    <rect x="455" y="222" width="16" height="24" rx="2" />
+
+    <!-- Ground Floor Iconic Arkady (Pointed Arcades) -->
+    <path d="M125 260 L480 260" stroke-width="1.8" />
+    
+    <path d="M135 330 L135 285 Q147.5 268 160 285 L160 330" />
+    <path d="M170 330 L170 285 Q182.5 268 195 285 L195 330" />
+    <path d="M205 330 L205 285 Q217.5 268 230 285 L230 330" />
+    <path d="M240 330 L240 285 Q250 268 260 285 L260 330" />
+    
+    <!-- Grand Central Arched Entrance Gateway -->
+    <path d="M272 330 L272 280 Q285 265 298 280 L298 330" stroke-width="2.2" />
+    
+    <path d="M310 330 L310 285 Q322.5 268 335 285 L335 330" />
+    <path d="M345 330 L345 285 Q357.5 268 370 285 L370 330" />
+    <path d="M380 330 L380 285 Q392.5 268 405 285 L405 330" />
+    <path d="M415 330 L415 285 Q427.5 268 440 285 L440 330" />
+    <path d="M450 330 L450 285 Q462.5 268 475 285 L475 330" />
+  </g>
+</svg>

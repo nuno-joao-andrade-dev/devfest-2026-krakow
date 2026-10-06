@@ -1,0 +1,10 @@
+{
+  "name": "workshop-step-03-native-tools",
+  "version": "1.0.0",
+  "description": "Step 3: Creating and testing native JavaScript domain tools with JSON Schema definitions for Kraków",
+  "type": "module",
+  "main": "src/tools.js",
+  "scripts": {
+    "test": "node --test test/**/*.test.js"
+  }
+}

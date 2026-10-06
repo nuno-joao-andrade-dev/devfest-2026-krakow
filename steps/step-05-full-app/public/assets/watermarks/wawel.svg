@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- Wawel Royal Castle & Cathedral (Zamek Królewski na Wawelu) Kraków Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Hill Slope & Bastion Brick Ramparts -->
+    <path d="M10 330 L100 310 L220 295 L340 295 L490 320" stroke-width="2" />
+    <path d="M30 335 L120 315 L240 300 L360 300 L470 325" stroke-dasharray="4 6" opacity="0.6" />
+    <!-- Rampart Masonry Stones -->
+    <path d="M60 325 L60 318 M140 310 L140 302 M280 298 L280 305 M400 312 L400 320" opacity="0.5" />
+
+    <!-- Clock Tower (Wieża Zegarowa - Wawel Cathedral) -->
+    <path d="M90 310 L90 140 L135 140 L135 305" />
+    <path d="M95 310 L95 145 M130 305 L130 145" />
+    <!-- Clock Tower Baroque Helm with Turrets -->
+    <path d="M85 140 L140 140" stroke-width="2" />
+    <path d="M90 140 C90 110 112 90 112 80 C112 90 135 110 135 140 Z" stroke-width="1.8" />
+    <rect x="106" y="55" width="12" height="25" rx="3" />
+    <path d="M104 55 C104 42 112 35 112 35 C112 35 120 42 120 55 Z" />
+    <path d="M112 35 L112 22 M108 27 L116 27" stroke-width="2" />
+    <!-- Clock Face -->
+    <circle cx="112" cy="165" r="14" />
+    <path d="M112 155 L112 165 L119 165" stroke-width="1.5" />
+    <!-- Tower Windows -->
+    <path d="M102 200 Q112 188 122 200 L122 240 L102 240 Z" />
+    <path d="M112 192 L112 240" />
+    <path d="M102 260 Q112 250 122 260 L122 290 L102 290 Z" />
+
+    <!-- Sigismund Chapel (Kaplica Zygmuntowska - "The Pearl of the Renaissance") -->
+    <!-- Square Chapel Base -->
+    <rect x="145" y="210" width="75" height="85" />
+    <!-- Round Drum with Circular Windows -->
+    <rect x="152" y="180" width="61" height="30" rx="4" />
+    <circle cx="165" cy="195" r="5" />
+    <circle cx="182.5" cy="195" r="5" />
+    <circle cx="200" cy="195" r="5" />
+    <!-- Gilded Scale-Covered Dome -->
+    <path d="M152 180 C152 135 182.5 120 182.5 120 C182.5 120 213 135 213 180 Z" stroke-width="2" />
+    <!-- Dome Vertical Ribs -->
+    <path d="M165 178 C165 145 182.5 120 182.5 120" stroke-dasharray="3 3" />
+    <path d="M200 178 C200 145 182.5 120 182.5 120" stroke-dasharray="3 3" />
+    <!-- Lantern on Dome -->
+    <rect x="176" y="98" width="13" height="22" rx="2" />
+    <path d="M174 98 C174 85 182.5 78 182.5 78 C182.5 78 191 85 191 98 Z" />
+    <path d="M182.5 78 L182.5 65 M178.5 70 L186.5 70" stroke-width="2" />
+
+    <!-- Silver Bells Tower (Wieża Srebrnych Dzwonów) -->
+    <path d="M225 295 L225 155 L260 155 L260 295" />
+    <path d="M220 155 L265 155" stroke-width="2" />
+    <path d="M225 155 L242.5 110 L260 155 Z" stroke-width="1.8" />
+    <path d="M242.5 110 L242.5 95 M239 102 L246 102" stroke-width="2" />
+    <path d="M235 175 Q242.5 168 250 175 L250 205 L235 205 Z" />
+
+    <!-- Royal Castle Renaissance Arcaded Wing (Zamek Królewski) -->
+    <!-- Multi-Story Castle Palace -->
+    <path d="M260 295 L260 160 L450 160 L450 310" />
+    <!-- Renaissance Attic Parapet with Niches -->
+    <path d="M255 160 L455 160" stroke-width="2.5" />
+    <path d="M260 148 L450 148" />
+    <path d="M265 148 L265 160 M285 148 L285 160 M305 148 L305 160 M325 148 L325 160 M345 148 L345 160 M365 148 L365 160 M385 148 L385 160 M405 148 L405 160 M425 148 L425 160 M445 148 L445 160" />
+
+    <!-- 3 Tiers of Renaissance Loggia Arcades -->
+    <!-- Tier 1 Arcades (Ground floor) -->
+    <path d="M275 295 L275 270 Q290 255 305 270 L305 295" />
+    <path d="M315 295 L315 270 Q330 255 345 270 L345 295" />
+    <path d="M355 295 L355 270 Q370 255 385 270 L385 295" />
+    <path d="M395 295 L395 270 Q410 255 425 270 L425 295" />
+    <path d="M260 255 L450 255" />
+
+    <!-- Tier 2 Arcades (First floor) -->
+    <path d="M275 255 L275 230 Q290 215 305 230 L305 255" />
+    <path d="M315 255 L315 230 Q330 215 345 230 L345 255" />
+    <path d="M355 255 L355 230 Q370 215 385 230 L385 255" />
+    <path d="M395 255 L395 230 Q410 215 425 230 L425 255" />
+    <path d="M260 215 L450 215" />
+
+    <!-- Tier 3 Slender Columns (Top piano nobile) -->
+    <path d="M275 215 L275 185 Q290 170 305 185 L305 215" />
+    <path d="M315 215 L315 185 Q330 170 345 185 L345 215" />
+    <path d="M355 215 L355 185 Q370 170 385 185 L385 215" />
+    <path d="M395 215 L395 185 Q410 170 425 185 L425 215" />
+
+    <!-- Sandomierska / Senatorska Defensive Bastion Tower -->
+    <path d="M450 310 L450 180 L480 180 L480 320" />
+    <path d="M445 180 L485 180" stroke-width="2" />
+    <path d="M450 180 L465 140 L480 180 Z" stroke-width="1.8" />
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- Smok Wawelski (Wawel Dragon) & Smocza Jama Kraków Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Vistula River Bank & Wawel Limestone Ground Line -->
+    <path d="M10 330 L490 330" stroke-width="2" />
+    <path d="M20 336 L480 336" stroke-dasharray="4 6" opacity="0.6" />
+
+    <!-- Wawel Castle Hill & Fortification Walls in Background -->
+    <path d="M220 330 L220 200 L470 170 L470 330" opacity="0.6" />
+    <path d="M230 180 L470 150" stroke-width="2" opacity="0.7" />
+    <!-- Castle Wall Battlements (Crenellations) -->
+    <path d="M240 180 L240 168 L255 168 L255 180" opacity="0.6" />
+    <path d="M270 176 L270 164 L285 164 L285 176" opacity="0.6" />
+    <path d="M300 172 L300 160 L315 160 L315 172" opacity="0.6" />
+    <path d="M330 168 L330 156 L345 156 L345 168" opacity="0.6" />
+    <path d="M360 164 L360 152 L375 152 L375 164" opacity="0.6" />
+    <path d="M390 160 L390 148 L405 148 L405 160" opacity="0.6" />
+    <path d="M420 156 L420 144 L435 144 L435 156" opacity="0.6" />
+    <path d="M450 152 L450 140 L465 140 L465 152" opacity="0.6" />
+
+    <!-- Thieves' Tower (Baszta Złodziejska) on Wawel Wall -->
+    <path d="M410 155 L410 90 L460 90 L460 155" opacity="0.7" />
+    <path d="M405 90 L465 90" stroke-width="2" opacity="0.7" />
+    <path d="M410 90 L435 50 L460 90 Z" stroke-width="1.8" opacity="0.7" />
+    <path d="M435 50 L435 38" stroke-width="2" opacity="0.7" />
+
+    <!-- Smocza Jama (Dragon's Cave Limestone Cavern Entrance) -->
+    <path d="M250 330 C250 250 320 230 380 260 C420 280 430 330 430 330 Z" stroke-width="2.2" />
+    <path d="M270 330 C270 270 320 255 365 275 C395 290 405 330 405 330" opacity="0.5" stroke-dasharray="3 3" />
+
+    <!-- The Legendary Bronze Wawel Dragon Sculpture (Pomnik Smoka Wawelskiego) -->
+    <!-- Stylized multi-legged / segmented bronze body by Bronisław Chromy -->
+    <!-- Dragon Head & Open Snout Breathing Flame -->
+    <path d="M80 110 L125 110 L135 95 L115 90 L85 90 L75 100 Z" stroke-width="2.2" />
+    <circle cx="100" cy="98" r="3" />
+    <!-- Stylized Fire Flame from Jaws -->
+    <path d="M60 102 Q40 90 25 100 Q45 108 55 115 Q35 125 45 132 Q65 122 75 112" stroke-width="1.8" />
+    <path d="M45 105 Q30 98 20 105" opacity="0.7" />
+
+    <!-- Dragon Segmented Neck -->
+    <path d="M115 110 L135 160 L155 160 L135 110 Z" stroke-width="2" />
+    <path d="M125 125 L145 125 M130 142 L150 142" />
+
+    <!-- Stylized Spiky Spine Plates (Grzebień smoczy) -->
+    <path d="M135 95 L142 80 L148 100" stroke-width="1.8" />
+    <path d="M148 100 L156 85 L162 110" stroke-width="1.8" />
+    <path d="M155 160 L165 145 L175 165" stroke-width="1.8" />
+    <path d="M185 170 L195 152 L205 175" stroke-width="1.8" />
+    <path d="M215 180 L225 160 L235 185" stroke-width="1.8" />
+
+    <!-- Main Segmented Torso Body -->
+    <path d="M135 160 C135 160 170 170 210 180 C235 190 250 210 240 240 C220 255 180 250 150 240 C130 220 135 160 135 160 Z" stroke-width="2.2" />
+    
+    <!-- Stylized Angular Multiple Legs (Charakterystyczne nogi rzeźby Chromego) -->
+    <!-- Front Leg Pair -->
+    <path d="M140 230 L130 280 L115 330" stroke-width="2.5" />
+    <path d="M115 330 L105 330 M115 330 L125 330" stroke-width="2" />
+    <path d="M155 235 L150 285 L140 330" stroke-width="2" />
+    <path d="M140 330 L132 330 M140 330 L148 330" stroke-width="1.8" />
+
+    <!-- Middle Leg Pair -->
+    <path d="M180 245 L180 290 L175 330" stroke-width="2.5" />
+    <path d="M175 330 L168 330 M175 330 L185 330" stroke-width="2" />
+    <path d="M200 242 L205 288 L200 330" stroke-width="2" />
+    
+    <!-- Hind Leg Pair -->
+    <path d="M225 235 L235 285 L245 330" stroke-width="2.5" />
+    <path d="M245 330 L238 330 M245 330 L255 330" stroke-width="2" />
+
+    <!-- Dragon Tail Curving Down -->
+    <path d="M240 230 C260 220 275 235 280 260 C285 285 270 310 260 325 L255 330" stroke-width="2" />
+  </g>
+</svg>

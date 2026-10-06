@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kraków Cultural AI Assistant | Tour Guide & Concierge</title>
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #121826;
+      --bg-card: #182234;
+      --bg-chat-user: #1f3352;
+      --bg-chat-bot: #141c2c;
+      --border-color: #26354d;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --crimson: #c53030;
+      --crimson-hover: #9b2c2c;
+      --gold: #d4af37;
+      --gold-light: #f6e05e;
+      --accent-blue: #3b82f6;
+      --accent-green: #10b981;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-logo {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .brand-title h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    .brand-title p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background-color: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #60a5fa;
+    }
+
+    .status-dot.online {
+      background-color: var(--accent-green);
+      box-shadow: 0 0 6px var(--accent-green);
+    }
+
+    .status-dot.offline {
+      background-color: #eab308;
+      box-shadow: 0 0 6px #eab308;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+      padding: 1rem 1rem 0.5rem 1rem;
+    }
+
+    #chat-container {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    #chat-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #chat-container::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .message-row {
+      display: flex;
+      gap: 0.75rem;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message-row.user {
+      justify-content: flex-end;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+    }
+
+    .message-row.assistant .avatar {
+      background: linear-gradient(135deg, #821818, #3c0c0c);
+      border-color: var(--gold);
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 0.85rem 1.15rem;
+      border-radius: 12px;
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+    .message-row.user .bubble {
+      background-color: var(--bg-chat-user);
+      border: 1px solid #2b456e;
+      color: #fff;
+      border-bottom-right-radius: 2px;
+    }
+
+    .message-row.assistant .bubble {
+      background-color: var(--bg-chat-bot);
+      border: 1px solid var(--border-color);
+      color: #e2e8f0;
+      border-bottom-left-radius: 2px;
+    }
+
+    .bubble p {
+      margin-bottom: 0.6rem;
+    }
+
+    .bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bubble ul, .bubble ol {
+      margin-left: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .bubble strong {
+      color: #fff;
+    }
+
+    .bubble table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0;
+      font-size: 0.84rem;
+    }
+
+    .bubble th, .bubble td {
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.6rem;
+      text-align: left;
+    }
+
+    .bubble th {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--gold-light);
+    }
+
+    .bubble a {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
+
+    .bubble blockquote {
+      border-left: 3px solid var(--gold);
+      padding-left: 0.75rem;
+      margin: 0.5rem 0;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .meta-tags {
+      margin-top: 0.65rem;
+      padding-top: 0.5rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .tag-tool {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .tag-rag-static {
+      background: rgba(212, 175, 55, 0.15);
+      color: #fef08a;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .tag-rag-mutable {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .tag-time {
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      margin-left: auto;
+    }
+
+    .tool-details {
+      margin-top: 0.5rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.5rem 0.7rem;
+      font-size: 0.78rem;
+      font-family: monospace;
+      color: #cbd5e1;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .suggestions-bar {
+      display: flex;
+      gap: 0.45rem;
+      overflow-x: auto;
+      padding: 0.5rem 0;
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .suggestions-bar::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.77rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .chip:hover {
+      background: #223049;
+      border-color: var(--accent-blue);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .input-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .input-section:focus-within {
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.3);
+    }
+
+    textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.92rem;
+      resize: none;
+      height: 24px;
+      max-height: 120px;
+      outline: none;
+      line-height: 1.4;
+    }
+
+    textarea::placeholder {
+      color: #64748b;
+    }
+
+    button.send-btn {
+      background: var(--crimson);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    button.send-btn:hover:not(:disabled) {
+      background: var(--crimson-hover);
+    }
+
+    button.send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .typing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-logo">🏰</div>
+      <div class="brand-title">
+        <h1>Kraków Cultural AI Assistant</h1>
+        <p id="brand-subtitle">Tour Guide • Historian • Local Concierge (Local LLM & Local RAG)</p>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.8rem;">
+      <a href="/dev-ui" target="_blank" style="text-decoration: none; font-size: 0.75rem; font-weight: 600; color: #f6e05e; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.4); padding: 0.25rem 0.65rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.35rem;" title="Open official Google ADK Web Dev-UI">
+        🧭 ADK Dev-UI (Port 8000)
+      </a>
+      <div id="status-pill" class="status-badge">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="status-text">Connecting...</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="chat-container">
+      <div class="message-row assistant">
+        <div class="avatar">👑</div>
+        <div class="bubble">
+          <p><strong>Dzień dobry! Welcome to Kraków.</strong></p>
+          <p>I am your local Cultural AI Assistant, powered by Gemma 4 and an on-device dual-layer RAG engine. I can guide you through the royal history of Wawel Hill, tell the legends of St. Mary's Basilica and the Hejnał, check real-time ticket availability, and recommend traditional dining from Kazimierz to Old Town.</p>
+          <p>How may I assist your exploration of the Royal Capital City today?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestions-bar">
+      <button class="chip" onclick="sendSuggestion('What is the schedule and history of the Hejnał Mariacki trumpet call?')">🎺 Hejnał Schedule</button>
+      <button class="chip" onclick="sendSuggestion('Check Wawel Castle ticket availability for tomorrow')">🏰 Wawel Ticket Availability</button>
+      <button class="chip" onclick="sendSuggestion('What are the official ticket prices and opening hours for Wawel Castle?')">💰 Wawel Admission Prices</button>
+      <button class="chip" onclick="sendSuggestion('Recommend an authentic milk bar (bar mleczny) in Old Town')">🥟 Authentic Milk Bars</button>
+      <button class="chip" onclick="sendSuggestion('What are the tourist emergency numbers and visitor center locations in Kraków?')">🚨 Tourist Services & Emergency</button>
+      <button class="chip" onclick="sendSuggestion('Tell me the history and culture of Kazimierz Jewish Quarter')">🕍 Kazimierz Heritage</button>
+    </div>
+
+    <div class="input-section">
+      <textarea id="user-input" placeholder="Ask about Kraków's history, tickets, dining, or landmarks..." rows="1"></textarea>
+      <button id="send-button" class="send-btn">
+        <span>Send</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </main>
+
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    const statusPill = document.getElementById('status-pill');
+    const statusDot = document.getElementById('status-dot');
+    const statusText = document.getElementById('status-text');
+
+    const conversationHistory = [];
+
+    // Auto-resize input
+    userInput.addEventListener('input', () => {
+      userInput.style.height = 'auto';
+      userInput.style.height = Math.min(userInput.scrollHeight, 120) + 'px';
+    });
+
+    userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit();
+      }
+    });
+
+    sendButton.addEventListener('click', handleSubmit);
+
+    async function checkHealth() {
+      try {
+        const res = await fetch('/api/health');
+        if (!res.ok) throw new Error('Health check error');
+        const data = await res.json();
+        
+        if (data.ollama && data.ollama.online) {
+          statusDot.className = 'status-dot online';
+          const modelName = data.ollama.configuredModel || 'Local LLM';
+          statusText.textContent = `${modelName} Online (${data.rag.totalChunks} RAG Chunks)`;
+          const brandSub = document.getElementById('brand-subtitle');
+          if (brandSub) {
+            brandSub.textContent = `Tour Guide • Historian • Local Concierge (${modelName} & Local RAG)`;
+          }
+        } else {
+          statusDot.className = 'status-dot offline';
+          statusText.textContent = `RAG Grounded Mode (${data.rag.totalChunks} Chunks)`;
+        }
+      } catch (err) {
+        statusDot.className = 'status-dot offline';
+        statusText.textContent = 'Server Connected';
+      }
+    }
+
+    checkHealth();
+    setInterval(checkHealth, 15000);
+
+    function sendSuggestion(text) {
+      userInput.value = text;
+      handleSubmit();
+    }
+
+    function renderMarkdown(rawText) {
+      if (!rawText) return '';
+      let text = rawText
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Tables
+      text = text.replace(/\|(.+)\|/g, (match) => {
+        const cells = match.split('|').filter(c => c.trim().length > 0);
+        if (cells.some(c => c.includes('---'))) {
+          return ''; // skip separator row
+        }
+        const renderedCells = cells.map(c => `<td>${c.trim()}</td>`).join('');
+        return `<tr>${renderedCells}</tr>`;
+      });
+      if (text.includes('<tr>')) {
+        text = text.replace(/(<tr>.+<\/tr>)/gs, '<table>$1</table>');
+      }
+
+      // Blockquotes
+      text = text.replace(/^>\s?(.*)$/gm, '<blockquote>$1</blockquote>');
+
+      // Headings
+      text = text.replace(/^### (.*$)/gim, '<strong>$1</strong>');
+      text = text.replace(/^## (.*$)/gim, '<strong>$1</strong>');
+      text = text.replace(/^# (.*$)/gim, '<strong>$1</strong>');
+
+      // Bold & Italic
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      text = text.replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,0.1);padding:2px 4px;border-radius:4px;font-size:0.85em;">$1</code>');
+
+      // Unordered lists
+      text = text.replace(/^\s*[\*\-]\s+(.*)$/gm, '<li>$1</li>');
+      text = text.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+
+      // Links
+      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+      // Paragraph linebreaks
+      const paras = text.split(/\n\n+/);
+      return paras.map(p => p.startsWith('<') ? p : `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+    }
+
+    async function handleSubmit() {
+      const query = userInput.value.trim();
+      if (!query || sendButton.disabled) return;
+
+      appendUserMessage(query);
+      userInput.value = '';
+      userInput.style.height = '24px';
+      sendButton.disabled = true;
+
+      const loadingRow = appendLoadingIndicator();
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: query,
+            history: conversationHistory
+          })
+        });
+
+        const data = await response.json();
+        loadingRow.remove();
+
+        if (data.success) {
+          appendAssistantResponse(data);
+          conversationHistory.push({ role: 'user', content: query });
+          conversationHistory.push({ role: 'assistant', content: data.response });
+        } else {
+          appendErrorMessage(data.error || 'Failed to process inquiry.');
+        }
+      } catch (err) {
+        loadingRow.remove();
+        appendErrorMessage('Network error communicating with the local Express assistant backend.');
+      } finally {
+        sendButton.disabled = false;
+        userInput.focus();
+      }
+    }
+
+    function appendUserMessage(text) {
+      const row = document.createElement('div');
+      row.className = 'message-row user';
+      row.innerHTML = `
+        <div class="bubble">
+          <p>${escapeHtml(text)}</p>
+        </div>
+      `;
+      chatContainer.appendChild(row);
+      scrollToBottom();
+    }
+
+    function appendLoadingIndicator() {
+      const row = document.createElement('div');
+      row.className = 'message-row assistant';
+      row.innerHTML = `
+        <div class="avatar">👑</div>
+        <div class="bubble">
+          <div class="typing-indicator">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+      `;
+      chatContainer.appendChild(row);
+      scrollToBottom();
+      return row;
+    }
+
+    function appendAssistantResponse(data) {
+      const row = document.createElement('div');
+      row.className = 'message-row assistant';
+
+      let tagsHtml = '';
+      if (data.toolsUsed && data.toolsUsed.length > 0) {
+        data.toolsUsed.forEach(t => {
+          tagsHtml += `<span class="tag tag-tool">⚡ Tool: ${escapeHtml(t.name)}</span>`;
+        });
+      }
+
+      if (data.sources && data.sources.length > 0) {
+        data.sources.forEach(s => {
+          const cls = s.layer === 'mutable' ? 'tag-rag-mutable' : 'tag-rag-static';
+          tagsHtml += `<span class="tag ${cls}">📚 ${escapeHtml(s.title.split('>').pop().trim())}</span>`;
+        });
+      }
+
+      if (data.durationMs) {
+        tagsHtml += `<span class="tag-time">${data.durationMs}ms</span>`;
+      }
+
+      let toolDetailsHtml = '';
+      if (data.toolsUsed && data.toolsUsed.length > 0) {
+        toolDetailsHtml = `
+          <details style="margin-top: 0.5rem;">
+            <summary style="font-size:0.75rem; color:var(--text-muted); cursor:pointer;">Show Native Tool Execution Logs</summary>
+            <div class="tool-details">
+              ${escapeHtml(JSON.stringify(data.toolsUsed, null, 2))}
+            </div>
+          </details>
+        `;
+      }
+
+      row.innerHTML = `
+        <div class="avatar">👑</div>
+        <div class="bubble">
+          ${renderMarkdown(data.response)}
+          ${toolDetailsHtml}
+          ${tagsHtml ? `<div class="meta-tags">${tagsHtml}</div>` : ''}
+        </div>
+      `;
+
+      chatContainer.appendChild(row);
+      scrollToBottom();
+    }
+
+    function appendErrorMessage(msg) {
+      const row = document.createElement('div');
+      row.className = 'message-row assistant';
+      row.innerHTML = `
+        <div class="avatar">⚠️</div>
+        <div class="bubble" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.1);">
+          <p><strong>System Alert:</strong> ${escapeHtml(msg)}</p>
+        </div>
+      `;
+      chatContainer.appendChild(row);
+      scrollToBottom();
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag] || tag));
+    }
+
+    function scrollToBottom() {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  </script>
+</body>
+</html>

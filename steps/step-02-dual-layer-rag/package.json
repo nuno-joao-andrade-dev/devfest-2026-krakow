@@ -1,0 +1,10 @@
+{
+  "name": "workshop-step-02-dual-layer-rag",
+  "version": "1.0.0",
+  "description": "Step 2: Building an in-memory Dual-Layer RAG engine for static historical and mutable live markdown knowledge",
+  "type": "module",
+  "main": "src/ragEngine.js",
+  "scripts": {
+    "test": "node --test test/**/*.test.js"
+  }
+}

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" fill="none" stroke="#1a73e8">
+  <!-- Collegium Maius (Jagiellonian University - founded 1364) Kraków Lineart Watermark -->
+  <g stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+    <!-- Courtyard Cobblestone Ground Line -->
+    <path d="M10 330 L490 330" stroke-width="2" />
+    <path d="M30 335 L470 335" stroke-dasharray="4 6" opacity="0.6" />
+
+    <!-- Left High Gothic Wing with Famous Stepped Gable (Szczyt Schodkowy) -->
+    <path d="M60 330 L60 170 L75 170 L75 145 L90 145 L90 120 L105 120 L105 95 L120 95 L120 70 L135 70 L135 45 L150 45 L150 25 L165 25 L165 45 L180 45 L180 70 L195 70 L195 95 L210 95 L210 120 L225 120 L225 145 L240 145 L240 170 L255 170 L255 330" stroke-width="2" />
+    
+    <!-- Pinnacle Turret atop the Gable -->
+    <path d="M157.5 25 L157.5 10 M153 16 L162 16" stroke-width="2" />
+
+    <!-- Gothic Blind Tracery Niches (Blendy Ostrołukowe) in the Stepped Gable -->
+    <path d="M150 55 Q157.5 45 165 55 L165 75 L150 75 Z" />
+    <path d="M135 80 Q142.5 70 150 80 L150 105 L135 105 Z" />
+    <path d="M165 80 Q172.5 70 180 80 L180 105 L165 105 Z" />
+    <path d="M120 110 Q127.5 100 135 110 L135 140 L120 140 Z" />
+    <path d="M180 110 Q187.5 100 195 110 L195 140 L180 140 Z" />
+    <path d="M150 115 Q157.5 105 165 115 L165 150 L150 150 Z" />
+
+    <!-- Historical Astronomical Clock & Sundial (Where Copernicus studied) -->
+    <circle cx="157.5" cy="180" r="16" stroke-width="2" />
+    <circle cx="157.5" cy="180" r="12" stroke-dasharray="2 3" />
+    <path d="M157.5 166 L157.5 180 L165 180" stroke-width="1.8" />
+    
+    <!-- Stone Professor's External Staircase (Zewnętrzne Schody Profesorskie) -->
+    <path d="M70 330 L130 250 L180 250 L180 330" />
+    <path d="M85 330 L130 270 M100 330 L130 290" />
+    <path d="M130 250 L130 220 L160 220 L160 250" />
+    <!-- Gothic Covered Balcony Entrance (Porta Aurea) -->
+    <path d="M135 220 Q145 208 155 220 L155 250 L135 250 Z" />
+
+    <!-- Famous Arcaded Cloister Courtyard (Krużganki Dziedzińca) -->
+    <path d="M255 330 L255 170 L480 170 L480 330" />
+    <!-- Steep Slate Roof -->
+    <path d="M255 170 L480 170 L470 110 L255 110 Z" />
+    <!-- Dormer Windows on Roof -->
+    <path d="M300 140 L315 120 L330 140 Z" />
+    <path d="M370 140 L385 120 L400 140 Z" />
+    <path d="M430 140 L445 120 L460 140 Z" />
+
+    <!-- Upper Cloister Gothic-Renaissance Gallery Arcades -->
+    <path d="M255 240 L480 240" stroke-width="2" />
+    
+    <path d="M265 240 L265 205 Q280 190 295 205 L295 240" />
+    <path d="M305 240 L305 205 Q320 190 335 205 L335 240" />
+    <path d="M345 240 L345 205 Q360 190 375 205 L375 240" />
+    <path d="M385 240 L385 205 Q400 190 415 205 L415 240" />
+    <path d="M425 240 L425 205 Q440 190 455 205 L455 240" />
+
+    <!-- Ground Floor Gothic Quadrangle Vaulted Arcades -->
+    <path d="M265 330 L265 275 Q280 255 295 275 L295 330" stroke-width="1.8" />
+    <path d="M305 330 L305 275 Q320 255 335 275 L335 330" stroke-width="1.8" />
+    <path d="M345 330 L345 275 Q360 255 375 275 L375 330" stroke-width="1.8" />
+    <path d="M385 330 L385 275 Q400 255 415 275 L415 330" stroke-width="1.8" />
+    <path d="M425 330 L425 275 Q440 255 455 275 L455 330" stroke-width="1.8" />
+
+    <!-- Diamond / Crystal Vaulting Hints inside Arcades -->
+    <path d="M280 262 L280 280 M320 262 L320 280 M360 262 L360 280 M400 262 L400 280 M440 262 L440 280" opacity="0.5" />
+    
+    <!-- Central Stone Well (Studnia Dziedzińca) -->
+    <ellipse cx="215" cy="318" rx="18" ry="7" stroke-width="2" />
+    <path d="M197 318 L197 330 Q215 336 233 330 L233 318" />
+    <path d="M205 315 L205 290 Q215 285 225 290 L225 315" />
+  </g>
+</svg>
