@@ -91,7 +91,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     console.warn(`⚠️ Warning: Model "${OLLAMA_MODEL}" not found in local library. Run: ollama pull ${OLLAMA_MODEL}`);
   } else {
     console.log(`✅ Model "${OLLAMA_MODEL}" is ready locally!`);
-    console.log('\n🚀 Sending test query to Gemma 4: "Summarize Kraków in one short sentence."\n');
+    console.log(`\n🚀 Sending test query to ${OLLAMA_MODEL}: "Summarize Kraków in one short sentence."\n`);
 
     const result = await queryGemma('Summarize Kraków in one short sentence.');
     console.log('💬 Gemma 4 Response:\n' + result.response);
