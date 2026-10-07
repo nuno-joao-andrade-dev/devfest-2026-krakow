@@ -234,7 +234,8 @@ app.post('/api/tools/:toolName', async (req, res) => {
  * Redirect convenience helper pointing users to the ADK Dev-UI inspector.
  */
 app.get('/dev-ui', (req, res) => {
-  res.redirect(`http://localhost:${ADK_PORT}/dev-ui`);
+  const host = req.hostname === '0.0.0.0' || !req.hostname ? 'localhost' : req.hostname;
+  res.redirect(`http://${host}:${ADK_PORT}/dev-ui`);
 });
 
 /**
@@ -254,45 +255,98 @@ app.use((req, res, next) => {
 let serverInstance = null;
 let adkServerInstance = null;
 
-export async function startServers() {
+/**
+ * Start the official Google ADK API and Web Dev-UI server in the same process.
+ * @param {number} [port=ADK_PORT]
+ * @param {string} [host=HOST]
+ * @returns {Promise<AdkApiServer|null>}
+ */
+export async function startAdkServer(port = ADK_PORT, host = HOST) {
+  try {
+    const bindHost = host === '0.0.0.0' ? '127.0.0.1' : host;
+    adkServerInstance = new AdkApiServer({
+      agentsDir: projectRoot,
+      port,
+      host: bindHost,
+      serveDebugUI: true,
+      allowedHosts: ['localhost', '127.0.0.1', bindHost]
+    });
+    await adkServerInstance.start();
+    console.log(`🛠️  Google ADK Web Dev-UI Live: http://${bindHost}:${port}/dev-ui`);
+    return adkServerInstance;
+  } catch (err) {
+    console.warn(`[ADK Server] Note: Google ADK Dev-UI could not bind on port ${port}: ${err.message}`);
+    return null;
+  }
+}
+
+/**
+ * Stop the Google ADK server if running.
+ */
+export async function stopAdkServer() {
+  if (adkServerInstance) {
+    try {
+      await adkServerInstance.stop();
+      adkServerInstance = null;
+    } catch (e) {
+      // Ignore cleanup error
+    }
+  }
+}
+
+export async function startServers(port = PORT, host = HOST) {
   // Pre-load MCP tools
   await agent.loadMcpTools();
 
+  // Start ADK Web Dev-UI server if not in test mode
+  if (process.env.NODE_ENV !== 'test') {
+    await startAdkServer(ADK_PORT, host);
+  }
+
   return new Promise((resolve) => {
-    serverInstance = app.listen(PORT, HOST, () => {
+    serverInstance = app.listen(port, host, () => {
+      const displayHost = host === '0.0.0.0' ? 'localhost' : host;
       console.log('=======================================================');
-      console.log(`🏰 Kraków Cultural Concierge & MCP Search: http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
-      console.log(`📡 REST API Endpoints: http://localhost:${PORT}/api/health`);
+      console.log(`🏰 Kraków Cultural Concierge & MCP Search: http://${displayHost}:${port}`);
+      console.log(`📡 REST API Endpoints: http://localhost:${port}/api/health`);
+      console.log(`🛠️  Google ADK Dev-UI Live: http://${displayHost}:${ADK_PORT}/dev-ui`);
       console.log(`🧠 Local Model: ${agent.model} via Ollama (${agent.ollamaHost})`);
       console.log(`🔍 Dynamic Cross-Content: Google Search MCP Server via stdio`);
       console.log('=======================================================');
-
-      // Start ADK Web Dev-UI server if not in test mode
-      if (process.env.NODE_ENV !== 'test') {
-        try {
-          const adkAgentDir = path.resolve(projectRoot, 'krakow_cultural_agent');
-          adkServerInstance = new AdkApiServer({
-            agentsDir: adkAgentDir
-          });
-          adkServerInstance.start(ADK_PORT);
-          console.log(`🛠️  Google ADK Dev-UI Live: http://localhost:${ADK_PORT}/dev-ui`);
-          console.log('=======================================================');
-        } catch (adkErr) {
-          console.warn(`[ADK Dev-UI] Could not launch Dev-UI on port ${ADK_PORT}:`, adkErr.message);
-        }
-      }
 
       resolve({ app, server: serverInstance });
     });
   });
 }
 
+export const startServer = startServers;
+
 // Auto-start if invoked directly
-if (process.argv[1] && process.argv[1].endsWith('server.js')) {
+if (process.env.NODE_ENV !== 'test' && process.argv[1] && process.argv[1].endsWith('server.js')) {
   startServers().catch(err => {
     console.error('Fatal initialization error:', err);
     process.exit(1);
   });
 }
 
-export { app, agent, ragEngine };
+// Graceful process shutdown handler
+const shutdown = async () => {
+  console.log('\n[Server] Received shutdown signal. Closing HTTP listeners and MCP connections...');
+  await stopAdkServer();
+  if (agent && typeof agent.close === 'function') {
+    await agent.close();
+  }
+  if (serverInstance) {
+    serverInstance.close(() => {
+      console.log('[Server] Process terminated cleanly.');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+};
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+
+export { app, agent, ragEngine, serverInstance, adkServerInstance };

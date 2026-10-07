@@ -6,8 +6,17 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "node --test test/**/*.test.js",
+    "adk": "node ../../node_modules/.bin/adk web . --port 8000",
+    "test": "NODE_ENV=test node --test test/**/*.test.js",
     "mcp": "node src/mcpServer.js"
+  },
+  "dependencies": {
+    "@google/adk": "^2.2.0",
+    "@google/adk-devtools": "^2.2.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "ollama": "^0.6.4"
   },
   "keywords": [
     "google-adk",

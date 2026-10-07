@@ -117,6 +117,12 @@ describe('Express REST API with Google Search MCP Tests', () => {
     assert.ok(html.includes('Google Search MCP Server'));
   });
 
+  it('GET /dev-ui redirects to the Google ADK Web Dev-UI port', async () => {
+    const res = await fetch(`${baseUrl}/dev-ui`, { redirect: 'manual' });
+    assert.strictEqual(res.status, 302);
+    assert.ok(res.headers.get('location').includes('/dev-ui'));
+  });
+
   it('loads krakow_cultural_agent/agent.js with 6 total tools', async () => {
     const { rootAgent } = await import('../krakow_cultural_agent/agent.js');
     assert.ok(rootAgent);
