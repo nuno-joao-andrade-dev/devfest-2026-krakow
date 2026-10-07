@@ -375,6 +375,8 @@ export async function recommendLocalDining(args = {}) {
 export const toolsByName = {
   getTrumpetCallSchedule,
   getWawelTicketAvailability,
+  getWawelPricing: getWawelTicketAvailability,
+  getWawelPrices: getWawelTicketAvailability,
   recommendLocalDining
 };
 
@@ -398,16 +400,16 @@ export const toolDefinitions = [
     type: 'function',
     function: {
       name: 'getWawelTicketAvailability',
-      description: 'Checks remaining real-time ticket availability, quotas, and pricing for Wawel Royal Castle and Cathedral exhibitions on a given date.',
+      description: 'Checks official admission ticket prices, exhibition fees, live ticket availability, and remaining quotas for Wawel Royal Castle and Cathedral exhibitions. Invoke this tool whenever asked about Wawel prices, ticket costs, fees, admission rates, ticket counts, or availability.',
       parameters: {
         type: 'object',
         properties: {
           date: {
             type: 'string',
-            description: 'Target date in YYYY-MM-DD format (e.g. 2026-10-15) or relative terms like "today" or "tomorrow".'
+            description: 'Optional target date in YYYY-MM-DD format (e.g. 2026-10-15) or relative terms like "today" or "tomorrow". Defaults to "today" if omitted.'
           }
         },
-        required: ['date']
+        required: []
       }
     }
   },

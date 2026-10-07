@@ -121,9 +121,17 @@ describe('Native Agent Tools Unit Tests', () => {
   it('registers all tools and exports valid schema definitions', () => {
     assert.ok(toolsByName.getTrumpetCallSchedule);
     assert.ok(toolsByName.getWawelTicketAvailability);
+    assert.ok(toolsByName.getWawelPricing);
+    assert.ok(toolsByName.getWawelPrices);
     assert.ok(toolsByName.recommendLocalDining);
 
     assert.strictEqual(toolDefinitions.length, 3);
+    const wawelDef = toolDefinitions.find(d => d.function.name === 'getWawelTicketAvailability');
+    assert.ok(wawelDef);
+    assert.ok(wawelDef.function.description.toLowerCase().includes('price'));
+    assert.ok(Array.isArray(wawelDef.function.parameters.required));
+    assert.strictEqual(wawelDef.function.parameters.required.includes('date'), false);
+
     for (const def of toolDefinitions) {
       assert.strictEqual(def.type, 'function');
       assert.ok(def.function.name);

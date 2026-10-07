@@ -67,6 +67,17 @@ describe('KrakowCulturalAgent Component Tests', () => {
     assert.ok(response.sources.length > 0);
   });
 
+  it('triggers getWawelTicketAvailability when asked for Wawel prices or tickets', async () => {
+    const agent = new KrakowCulturalAgent({
+      ollamaHost: 'http://127.0.0.1:59999'
+    });
+
+    const response = await agent.chat('What are the Wawel Castle admission prices and ticket costs?');
+    assert.ok(response.text);
+    assert.ok(response.toolsUsed.some(t => t.name === 'getWawelTicketAvailability'));
+    assert.ok(response.text.includes('Wawel Ticket'));
+  });
+
   it('executes end-to-end multi-turn chat with tool invocation when Ollama is online', async () => {
     const agent = new KrakowCulturalAgent();
     try {

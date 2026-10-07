@@ -10,10 +10,10 @@ export const DEFAULT_SYSTEM_INSTRUCTION = `You are the official Krakow Cultural 
 
 Core Principles & Behavioral Guidelines:
 1. Deeply Knowledgeable & Grounded: Answer questions about Kraków's landmarks, royal history, churches, legends, and Jewish heritage with rich detail and passion.
-2. Anti-Hallucination: Strictly ground factual claims regarding admission prices, opening hours, ticket quotas, and contact info in the provided [Retrieved Local Knowledge] and native tool responses.
+2. Anti-Hallucination: Strictly ground factual claims regarding admission prices, opening hours, ticket quotas, and contact info in native tool responses (especially 'getWawelTicketAvailability' for live Wawel admission pricing) and provided [Retrieved Local Knowledge].
 3. Native Tool Usage:
    - For trumpet call times, mechanics, and cardinal directions, execute the 'getTrumpetCallSchedule' tool.
-   - For ticket counts, exhibition quotas, and bookings on specific dates, execute the 'getWawelTicketAvailability' tool.
+   - For Wawel Castle & Cathedral admission prices, ticket costs, exhibition fees, ticket counts, quotas, or bookings (with or without a specific date), execute the 'getWawelTicketAvailability' tool.
    - For restaurant, milk bar (bar mleczny), street food, or fine dining advice, execute the 'recommendLocalDining' tool.
 4. Tone & Style: Warm, welcoming, historically accurate, polished, and structured. Use Polish cultural terminology where appropriate (e.g., Rynek Główny, Sukiennice, Hejnał, Smok Wawelski, Zapiekanka, Bar Mleczny).
 5. Language: Answer in the same language the user uses (defaulting to English for international travelers, or Polish if greeted in Polish).`;
@@ -377,12 +377,15 @@ Use the above verified local knowledge to answer questions accurately without fa
       toolSummary += `\n\n🎺 **Live Hejnał Schedule:** Next call in ${result.nextOccurrenceInMinutes} minutes (at ${result.nextScheduledTime}). Played 4 times to cardinal directions from St. Mary's 82m tower.`;
     }
 
-    if (lower.includes('ticket') || (lower.includes('wawel') && lower.includes('availability')) || lower.includes('pricing') || lower.includes('price')) {
+    // Check Wawel Tickets & Pricing
+    const isWawelQuery = lower.includes('wawel') || lower.includes('castle') || lower.includes('cathedral');
+    const isPriceOrTicket = lower.includes('ticket') || lower.includes('availability') || lower.includes('pricing') || lower.includes('price') || lower.includes('cost') || lower.includes('fee') || lower.includes('admission');
+    if ((isWawelQuery && isPriceOrTicket) || lower.includes('ticket') || (lower.includes('price') && lower.includes('wawel'))) {
       const result = await this.executeTool('getWawelTicketAvailability', { date: 'today' });
       toolsUsed.push({ name: 'getWawelTicketAvailability', args: { date: 'today' }, result });
       const stateRooms = result.exhibitions?.[0];
       const priceText = stateRooms ? ` (Regular: ${stateRooms.priceRegularPLN} PLN, Reduced: ${stateRooms.priceReducedPLN} PLN)` : '';
-      toolSummary += `\n\n🏰 **Wawel Ticket Availability Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${stateRooms?.availableTickets} tickets remaining${priceText}. Booking: ${result.officialBookingPortal}`;
+      toolSummary += `\n\n🏰 **Wawel Ticket & Pricing Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${stateRooms?.availableTickets} tickets remaining${priceText}. Booking: ${result.officialBookingPortal}`;
     }
 
     if (lower.includes('eat') || lower.includes('food') || lower.includes('restaurant') || lower.includes('bar mleczny') || lower.includes('dining')) {

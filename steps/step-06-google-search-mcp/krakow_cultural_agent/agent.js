@@ -14,7 +14,7 @@ const ragEngine = new DualLocalRAGEngine({
 // RAG Search tool for ADK Web UI
 const ragTool = new FunctionTool({
   name: 'search_krakow_knowledge',
-  description: 'Search the local Kraków archival and live knowledge base for verified historical facts, opening hours, prices, and emergency contacts.',
+  description: 'Search the local Kraków archival and live knowledge base for verified historical facts, opening hours, and emergency contacts. (For Wawel Castle & Cathedral admission prices, fees, and tickets, use getWawelTicketAvailability instead).',
   parameters: {
     type: 'object',
     properties: {

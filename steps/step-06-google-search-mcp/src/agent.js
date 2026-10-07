@@ -8,8 +8,11 @@ export const DEFAULT_SYSTEM_INSTRUCTION = `You are the Krakow Cultural AI Concie
 
 Core Responsibilities:
 1. Provide historically accurate, culturally grounded assistance for Kraków visitors.
-2. Rely primarily on verified local knowledge for historical monuments (Wawel, St. Mary's Basilica, Main Market Square, Kazimierz) and official museum pricing.
-3. Call native tools for precise calculations (Hejnał Mariacki time math, live exhibition availability, curated dining filters).
+2. Rely primarily on verified local knowledge for historical monuments (Wawel, St. Mary's Basilica, Main Market Square, Kazimierz) and general history.
+3. Call native tools for live data, pricing, and precise calculations:
+   - Execute 'getWawelTicketAvailability' whenever asked about Wawel Royal Castle & Cathedral admission prices, ticket costs, exhibition fees, ticket availability, or quotas (with or without a specific date).
+   - Execute 'getTrumpetCallSchedule' for Hejnał Mariacki time math, schedule, and mechanics.
+   - Execute 'recommendLocalDining' for curated dining and culinary filters.
 4. Call Google Search MCP tools (google_search, get_krakow_events_calendar) for dynamic cross-content: seasonal festivals, film & music events, live weather, temporary exhibitions (e.g., Leonardo da Vinci's Lady with an Ermine at Czartoryski Museum), and municipal transit updates.
 5. If local RAG and native tools do not contain the answer, seamlessly use google_search to retrieve external information.
 6. Adopt a warm, welcoming, scholarly yet accessible tone. Always cite sources where appropriate.`;
@@ -374,13 +377,15 @@ Use the above verified local knowledge when answering historical or municipal qu
       toolSummary += `\n\n🎺 **Live Hejnał Schedule:** Next call in ${result.nextOccurrenceInMinutes} minutes (at ${result.nextScheduledTime}). Played 4 times to cardinal directions from St. Mary's 82m tower.`;
     }
 
-    // Check Wawel Tickets
-    if (lower.includes('ticket') || (lower.includes('wawel') && lower.includes('availability')) || lower.includes('pricing') || lower.includes('price')) {
+    // Check Wawel Tickets & Pricing
+    const isWawelQuery = lower.includes('wawel') || lower.includes('castle') || lower.includes('cathedral');
+    const isPriceOrTicket = lower.includes('ticket') || lower.includes('availability') || lower.includes('pricing') || lower.includes('price') || lower.includes('cost') || lower.includes('fee') || lower.includes('admission');
+    if ((isWawelQuery && isPriceOrTicket) || lower.includes('ticket') || (lower.includes('price') && lower.includes('wawel'))) {
       const result = await this.executeTool('getWawelTicketAvailability', { date: 'today' });
       toolsUsed.push({ name: 'getWawelTicketAvailability', args: { date: 'today' }, result });
       const stateRooms = result.exhibitions?.[0];
       const priceText = stateRooms ? ` (Regular: ${stateRooms.priceRegularPLN} PLN, Reduced: ${stateRooms.priceReducedPLN} PLN)` : '';
-      toolSummary += `\n\n🏰 **Wawel Ticket Availability Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${stateRooms?.availableTickets} tickets remaining${priceText}. Booking: ${result.officialBookingPortal}`;
+      toolSummary += `\n\n🏰 **Wawel Ticket Availability & Pricing Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${stateRooms?.availableTickets} tickets remaining${priceText}. Booking: ${result.officialBookingPortal}`;
     }
 
     // Check Dining

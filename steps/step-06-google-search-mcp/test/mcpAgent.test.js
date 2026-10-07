@@ -159,4 +159,18 @@ describe('Google ADK & MCP Search Integration Tests', () => {
 
     await agent.close();
   });
+
+  it('triggers getWawelTicketAvailability in fallback when asked for Wawel prices or tickets', async () => {
+    const agent = new KrakowCulturalAgent();
+    const fallback = await agent.handleOllamaOfflineFallback(
+      'What are the Wawel Castle admission prices and ticket costs?',
+      [],
+      new Error('Model connection simulated offline')
+    );
+
+    assert.ok(fallback);
+    assert.ok(fallback.toolsUsed.some(t => t.name === 'getWawelTicketAvailability'));
+    assert.ok(fallback.text.includes('Wawel Ticket'));
+    await agent.close();
+  });
 });
