@@ -19,6 +19,7 @@ const PORT = parseInt(process.env.PORT || '3030', 10);
 const ADK_PORT = parseInt(process.env.ADK_PORT || '8000', 10);
 const HOST = process.env.HOST || '0.0.0.0';
 const MUTABLE_DIR = path.resolve(projectRoot, 'data/mutable');
+process.env.MUTABLE_DIR = process.env.MUTABLE_DIR || MUTABLE_DIR;
 const PUBLIC_DIR = path.resolve(projectRoot, 'public');
 
 // Initialize Express application

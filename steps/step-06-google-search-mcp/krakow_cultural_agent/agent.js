@@ -1,8 +1,15 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { Agent, FunctionTool } from '@google/adk';
 import { KrakowCulturalAgent, OllamaLlm, DEFAULT_SYSTEM_INSTRUCTION } from '../src/agent.js';
 import { DualLocalRAGEngine } from '../src/ragEngine.js';
 
-const ragEngine = new DualLocalRAGEngine();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const ragEngine = new DualLocalRAGEngine({
+  mutableDir: path.resolve(__dirname, '../data/mutable')
+});
 
 // RAG Search tool for ADK Web UI
 const ragTool = new FunctionTool({

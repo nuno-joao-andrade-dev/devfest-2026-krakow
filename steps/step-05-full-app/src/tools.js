@@ -1,7 +1,9 @@
-/**
- * Native tools exposed to the Krakow Cultural AI Assistant.
- * Provides live schedule lookups, ticket availability checks, and culinary concierge services.
- */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Returns the exact hourly occurrence, mechanics, and cardinal directions of the Hejnał Mariacki.
@@ -38,7 +40,100 @@ export async function getTrumpetCallSchedule() {
 }
 
 /**
+ * Locates the active wawel_pricing.md file across environment variables and directory conventions.
+ * Prioritizes WAWEL_PRICING_PATH, MUTABLE_DIR, and whichever existing candidate was most recently modified.
+ * @returns {string|null} Resolved file path or null
+ */
+export function getMutableWawelPricingFilePath() {
+  if (process.env.WAWEL_PRICING_PATH && fs.existsSync(process.env.WAWEL_PRICING_PATH)) {
+    return process.env.WAWEL_PRICING_PATH;
+  }
+  if (process.env.MUTABLE_DIR) {
+    const envPath = path.join(process.env.MUTABLE_DIR, 'wawel_pricing.md');
+    if (fs.existsSync(envPath)) {
+      return envPath;
+    }
+  }
+
+  const localStepPath = path.resolve(__dirname, '../data/mutable/wawel_pricing.md');
+  const rootPath = path.resolve(process.cwd(), 'data/mutable/wawel_pricing.md');
+
+  const stepExists = fs.existsSync(localStepPath);
+  const rootExists = fs.existsSync(rootPath);
+
+  if (stepExists && rootExists) {
+    try {
+      const stepMtime = fs.statSync(localStepPath).mtimeMs;
+      const rootMtime = fs.statSync(rootPath).mtimeMs;
+      return rootMtime > stepMtime ? rootPath : localStepPath;
+    } catch {
+      return localStepPath;
+    }
+  }
+
+  if (stepExists) return localStepPath;
+  if (rootExists) return rootPath;
+  return null;
+}
+
+/**
+ * Dynamically parse live Wawel exhibition admission prices from mutable markdown.
+ * Reads the markdown table under `Permanent Exhibitions` in `wawel_pricing.md`.
+ * Falls back to default 2026 season pricing if the file is unavailable or parsing fails.
+ * @returns {{ stateRooms: { regular: number, reduced: number }, apartments: { regular: number, reduced: number }, treasury: { regular: number, reduced: number }, dragonsDen: { regular: number, reduced: number } }}
+ */
+export function loadMutableWawelPricing() {
+  const defaultPricing = {
+    stateRooms: { regular: 55, reduced: 40 },
+    apartments: { regular: 50, reduced: 35 },
+    treasury: { regular: 45, reduced: 30 },
+    dragonsDen: { regular: 12, reduced: 12 }
+  };
+
+  const pricingFile = getMutableWawelPricingFilePath();
+  if (!pricingFile) {
+    return defaultPricing;
+  }
+
+  try {
+    const rawContent = fs.readFileSync(pricingFile, 'utf-8');
+    const parsed = { ...defaultPricing };
+    const lines = rawContent.split(/\r?\n/);
+
+    for (const line of lines) {
+      if (!line.includes('|')) continue;
+      const cols = line.split('|').map(c => c.trim()).filter(Boolean);
+      if (cols.length < 3) continue;
+
+      const exhibitionName = cols[0].replace(/\*\*/g, '').toLowerCase();
+      const regMatch = cols[1].match(/(\d+)/);
+      const redMatch = cols[2].match(/(\d+)/);
+
+      if (!regMatch) continue;
+      const regular = parseInt(regMatch[1], 10);
+      const reduced = redMatch ? parseInt(redMatch[1], 10) : regular;
+
+      if (exhibitionName.includes('state rooms') || exhibitionName.includes('reprezentacyjne')) {
+        parsed.stateRooms = { regular, reduced };
+      } else if (exhibitionName.includes('private apartments') || exhibitionName.includes('apartamenty')) {
+        parsed.apartments = { regular, reduced };
+      } else if (exhibitionName.includes('treasury') || exhibitionName.includes('skarbiec')) {
+        parsed.treasury = { regular, reduced };
+      } else if (exhibitionName.includes('dragon') || exhibitionName.includes('smocza')) {
+        parsed.dragonsDen = { regular, reduced };
+      }
+    }
+
+    return parsed;
+  } catch (err) {
+    console.warn('[Tools] Unable to parse mutable Wawel pricing markdown, using defaults:', err.message);
+    return defaultPricing;
+  }
+}
+
+/**
  * Live ticket simulator checking remaining quotas for Wawel Royal Castle exhibitions.
+ * Dynamically queries current exhibition admission prices from mutable markdown.
  * @param {object} args
  * @param {string} args.date - Date in YYYY-MM-DD or descriptive date string (e.g. '2026-10-15', 'tomorrow')
  * @returns {Promise<object>} Ticket availability breakdown
@@ -68,6 +163,9 @@ export async function getWawelTicketAvailability(args) {
   const treasuryLeft = isMonday ? 0 : Math.max(4, (seed * 5) % 110);
   const dragonsDenLeft = isMonday ? 120 : Math.max(25, (seed * 11) % 300);
 
+  // Dynamically load live admission prices from mutable markdown
+  const pricing = loadMutableWawelPricing();
+
   return {
     success: true,
     queryDate: isoDate,
@@ -80,30 +178,30 @@ export async function getWawelTicketAvailability(args) {
         name: 'Royal State Rooms (Reprezentacyjne Komnaty Królewskie)',
         status: isMonday ? 'Closed / Monday Free Limited Slot' : (stateRoomsLeft < 20 ? 'Low Availability' : 'Available'),
         availableTickets: stateRoomsLeft,
-        priceRegularPLN: 55,
-        priceReducedPLN: 40
+        priceRegularPLN: pricing.stateRooms.regular,
+        priceReducedPLN: pricing.stateRooms.reduced
       },
       {
         name: 'Royal Private Apartments (Prywatne Apartamenty Królewskie)',
         status: isMonday ? 'Closed' : (apartmentsLeft < 10 ? 'Nearly Sold Out' : 'Available'),
         availableTickets: apartmentsLeft,
-        priceRegularPLN: 50,
-        priceReducedPLN: 35,
+        priceRegularPLN: pricing.apartments.regular,
+        priceReducedPLN: pricing.apartments.reduced,
         note: 'Requires licensed guide accompaniment (included in ticket).'
       },
       {
         name: 'Crown Treasury (Skarbiec Koronny)',
         status: isMonday ? 'Closed' : (treasuryLeft < 15 ? 'Low Availability' : 'Available'),
         availableTickets: treasuryLeft,
-        priceRegularPLN: 45,
-        priceReducedPLN: 30
+        priceRegularPLN: pricing.treasury.regular,
+        priceReducedPLN: pricing.treasury.reduced
       },
       {
         name: 'Dragon\'s Den (Smocza Jama)',
         status: 'Available',
         availableTickets: dragonsDenLeft,
-        priceRegularPLN: 12,
-        priceReducedPLN: 12
+        priceRegularPLN: pricing.dragonsDen.regular,
+        priceReducedPLN: pricing.dragonsDen.reduced
       }
     ],
     officialBookingPortal: 'https://bilety.wawel.krakow.pl',

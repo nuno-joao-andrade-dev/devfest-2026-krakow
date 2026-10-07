@@ -375,10 +375,12 @@ Use the above verified local knowledge when answering historical or municipal qu
     }
 
     // Check Wawel Tickets
-    if (lower.includes('ticket') || (lower.includes('wawel') && lower.includes('availability'))) {
+    if (lower.includes('ticket') || (lower.includes('wawel') && lower.includes('availability')) || lower.includes('pricing') || lower.includes('price')) {
       const result = await this.executeTool('getWawelTicketAvailability', { date: 'today' });
       toolsUsed.push({ name: 'getWawelTicketAvailability', args: { date: 'today' }, result });
-      toolSummary += `\n\n🏰 **Wawel Ticket Availability Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${result.exhibitions[0]?.availableTickets} tickets remaining. Booking: ${result.officialBookingPortal}`;
+      const stateRooms = result.exhibitions?.[0];
+      const priceText = stateRooms ? ` (Regular: ${stateRooms.priceRegularPLN} PLN, Reduced: ${stateRooms.priceReducedPLN} PLN)` : '';
+      toolSummary += `\n\n🏰 **Wawel Ticket Availability Check:** ${result.mondaySpecialNotice || result.recommendation}. State Rooms: ${stateRooms?.availableTickets} tickets remaining${priceText}. Booking: ${result.officialBookingPortal}`;
     }
 
     // Check Dining
@@ -407,7 +409,7 @@ Use the above verified local knowledge when answering historical or municipal qu
       }
     }
 
-    const ragSnippets = sources.map(s => `• **${s.title}** (${s.file}): ${s.snippet}`).join('\n\n');
+    const ragSnippets = sources.map(s => `• **${s.title}** (${s.file || s.source}): ${s.snippet || ''}`).join('\n\n');
 
     const synthesizedText = `[Grounded RAG Direct Mode - Local Knowledge & MCP Tools]
 

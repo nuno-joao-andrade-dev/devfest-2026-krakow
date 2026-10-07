@@ -1,5 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Stop words in English and Polish to filter out during tokenization.
@@ -191,7 +195,13 @@ export class DualLocalRAGEngine {
    * @param {boolean} [options.enableCache] - Cache parsed mutable chunks based on file mtime
    */
   constructor(options = {}) {
-    this.mutableDir = options.mutableDir || path.resolve(process.cwd(), 'data/mutable');
+    const defaultDir = [
+      process.env.MUTABLE_DIR,
+      path.resolve(__dirname, '../data/mutable'),
+      path.resolve(process.cwd(), 'data/mutable')
+    ].find(dir => dir && fs.existsSync(dir)) || path.resolve(process.cwd(), 'data/mutable');
+
+    this.mutableDir = options.mutableDir || defaultDir;
     this.enableCache = options.enableCache ?? true;
     this.fileCache = new Map(); // filename -> { mtimeMs, chunks }
     this.staticChunks = [...STATIC_HISTORICAL_CHUNKS];
@@ -350,10 +360,20 @@ export class DualLocalRAGEngine {
   }
 
   /**
+   * Search knowledge base for top matching chunks (alias used by ADK FunctionTools).
+   * @param {string} query - User search question or topic
+   * @param {number} [topK=3] - Maximum chunks to return
+   * @returns {Array<object>} Matching chunks
+   */
+  query(query, topK = 3) {
+    return this.retrieve(query, { topK });
+  }
+
+  /**
    * Format retrieved knowledge into grounded markdown context for LLM prompt injection.
    * @param {string} query - User query
    * @param {number} [topK=3] - Maximum snippets to inject
-   * @returns {{ contextText: string, sources: Array<{ id: string, title: string, source: string, layer: string, score: number }> }}
+   * @returns {{ contextText: string, sources: Array<{ id: string, title: string, source: string, file: string, layer: string, score: number, snippet: string }> }}
    */
   formatContextForPrompt(query, topK = 3) {
     const results = this.retrieve(query, { topK, minScore: 0.8 });
@@ -375,8 +395,10 @@ export class DualLocalRAGEngine {
         id: r.id,
         title: r.title,
         source: r.source,
+        file: r.source,
         layer: r.layer,
-        score: r.score
+        score: r.score,
+        snippet: r.content.slice(0, 300) + (r.content.length > 300 ? '...' : '')
       }))
     };
   }

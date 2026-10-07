@@ -1,9 +1,13 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import {
   getTrumpetCallSchedule,
   getWawelTicketAvailability,
   recommendLocalDining,
+  loadMutableWawelPricing,
   toolsByName,
   toolDefinitions
 } from '../src/tools.js';
@@ -52,6 +56,50 @@ describe('Native Agent Tools Unit Tests', () => {
     assert.strictEqual(res.success, true);
     assert.ok(res.queryDate);
     assert.ok(res.exhibitions.length > 0);
+  });
+
+  it('getWawelTicketAvailability dynamically reflects updated prices from markdown', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'wawel-price-test-'));
+    const tmpFile = path.join(tmpDir, 'wawel_pricing.md');
+
+    const sampleMarkdown = `# Wawel Royal Castle
+### Permanent Exhibitions
+
+| Exhibition | Regular Ticket (PLN) | Reduced / Concessionary (PLN) | Estimated Duration |
+| :--- | :--- | :--- | :--- |
+| **Royal State Rooms (Reprezentacyjne Komnaty)** | 75 PLN | 55 PLN | 60 - 75 min |
+| **Royal Private Apartments (Prywatne Apartamenty)** | 65 PLN | 45 PLN | 60 min (guided only) |
+| **Crown Treasury (Skarbiec Koronny)** | 60 PLN | 40 PLN | 45 min |
+| **Dragon's Den (Smocza Jama)** | 20 PLN | 20 PLN | 20 min |
+`;
+
+    fs.writeFileSync(tmpFile, sampleMarkdown, 'utf-8');
+
+    const originalEnv = process.env.WAWEL_PRICING_PATH;
+    try {
+      process.env.WAWEL_PRICING_PATH = tmpFile;
+
+      const pricing = loadMutableWawelPricing();
+      assert.strictEqual(pricing.stateRooms.regular, 75);
+      assert.strictEqual(pricing.stateRooms.reduced, 55);
+      assert.strictEqual(pricing.apartments.regular, 65);
+      assert.strictEqual(pricing.dragonsDen.regular, 20);
+
+      const availability = await getWawelTicketAvailability({ date: '2026-10-15' });
+      const stateRooms = availability.exhibitions.find(e => e.name.includes('State Rooms'));
+      assert.strictEqual(stateRooms.priceRegularPLN, 75);
+      assert.strictEqual(stateRooms.priceReducedPLN, 55);
+
+      const dragonsDen = availability.exhibitions.find(e => e.name.includes('Dragon'));
+      assert.strictEqual(dragonsDen.priceRegularPLN, 20);
+    } finally {
+      if (originalEnv !== undefined) {
+        process.env.WAWEL_PRICING_PATH = originalEnv;
+      } else {
+        delete process.env.WAWEL_PRICING_PATH;
+      }
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
   });
 
   it('recommendLocalDining filters by district and budget tier', async () => {
