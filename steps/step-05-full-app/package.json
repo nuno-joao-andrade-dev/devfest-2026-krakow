@@ -11,9 +11,9 @@
     "test": "NODE_ENV=test node --test test/**/*.test.js"
   },
   "dependencies": {
-    "@google/adk": "^2.2.0",
-    "@google/adk-devtools": "^2.2.0",
-    "dotenv": "^18.0.5",
+    "@google/adk": "^2.2.1",
+    "@google/adk-devtools": "^2.2.1",
+    "dotenv": "^18.0.6",
     "express": "^5.2.1",
     "ollama": "^0.6.4"
   }

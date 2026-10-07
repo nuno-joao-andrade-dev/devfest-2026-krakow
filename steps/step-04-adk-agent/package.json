@@ -9,9 +9,9 @@
     "adk": "node ../../node_modules/.bin/adk web . --port 8000"
   },
   "dependencies": {
-    "@google/adk": "^2.2.0",
-    "@google/adk-devtools": "^2.2.0",
-    "dotenv": "^18.0.5",
+    "@google/adk": "^2.2.1",
+    "@google/adk-devtools": "^2.2.1",
+    "dotenv": "^18.0.6",
     "ollama": "^0.6.4"
   }
 }

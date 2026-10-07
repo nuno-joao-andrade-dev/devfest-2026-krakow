@@ -124,6 +124,10 @@ cd devfest_krakow_2026
 npm install
 ```
 
+### Real-World Risk for This Workshop
+
+Both advisories are Denial of Service (DoS) vectors that require passing untrusted, malicious input into internal format strings or glob patterns. In this project, fast-glob only indexes local workspace steps for the Dev-UI, and MSSQL is never invoked, meaning the realistic exploitability in this workshop environment is negligible.
+
 ---
 
 ### Step 3: Configure Environment Variables
